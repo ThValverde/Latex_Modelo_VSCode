@@ -96,6 +96,4 @@ Requer `-shell-escape` na compilação e o pacote `pygments` instalado no sistem
 - Estilos/classe USPSC incluídos em `assets/bib/usp/USPSC-classe/`.
 
 ## Licença
-Este repositório não define uma licença explícita no momento. Se for distribuir, considere adicionar um arquivo `LICENSE`.
-
 Este README foi gerado automaticamente através do Agente GPT-5.
