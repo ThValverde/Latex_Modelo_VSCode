@@ -6,7 +6,7 @@ set -euo pipefail
 # - Recipes: pdfLaTeX → BibTeX → pdfLaTeX × 2
 # - Tasks: quick build and full build with BibTeX
 
-ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
+ROOT_DIR=$(cd "$(dirname "$0")/../.." && pwd)
 VSC_DIR="$ROOT_DIR/.vscode"
 mkdir -p "$VSC_DIR"
 
