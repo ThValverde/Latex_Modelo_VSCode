@@ -1,0 +1,75 @@
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.synctex(busy)
+*.lof
+*.lot
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+*.run.xml
+*.bcf
+*.figlist
+*.makefile
+*.nav
+*.snm
+*.vrb
+*.xdy
+
+# Minted (code highlighting) cache
+_minted*/
+*.pyg
+
+# Biber
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# Build tools
+*.fdb_latexmk
+*.fls
+*.dpth
+*.md5
+*.auxlock
+
+# Editors
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# PDF output (opcional - remova se quiser versionar o PDF final)
+# *.pdf
