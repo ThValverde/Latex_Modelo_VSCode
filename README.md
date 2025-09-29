@@ -42,7 +42,7 @@ Dica: execute `bash tutorial/scripts/test_build.sh` para uma checagem rápida do
 
 ## Citações e referências (ABNT)
 - Adicione entradas no `referencias.bib` (ex.: `@misc{Brasil2024SNT, ...}`).
-- No texto, cite com `\cite{Brasil2024SNT}`.
+- No texto, cite com `\cite{Brasil2024SNT}` - referências listadas como exemplos.
 - Compile com a receita completa (pdfLaTeX → BibTeX → pdfLaTeX × 2) para resolver as referências.
 
 Estilos USPSC (opcionais): existem `.bst` específicos em `assets/bib/usp/USPSC-classe/`. Se quiser utilizá‑los, adicione (com caminho correto) após carregar os pacotes:
