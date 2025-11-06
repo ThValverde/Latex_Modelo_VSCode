@@ -9,6 +9,66 @@ Este guia documenta como replicar a configuração que está funcionando neste p
 
 Observação importante: minted exige compilar com a flag `-shell-escape` para invocar `pygmentize`.
 
+## Instalação do TeX e Pygments (Windows / Fedora / Ubuntu)
+
+A seguir há instruções rápidas para instalar um sistema TeX completo e o Pygments (necessário por `minted`) em Windows (MiKTeX), Fedora e Ubuntu. `texlive-full` é uma opção simples e completa em Linux, porém grande. Se preferir instalar só os pacotes mínimos, veja a documentação da sua distribuição.
+
+Windows (MiKTeX)
+- Baixe e execute o instalador do MiKTeX: https://miktex.org/download
+- Durante a instalação, permita a instalação de pacotes "on-the-fly" (ou ative-a depois no MiKTeX Console → Settings → General → Install missing packages on-the-fly).
+- Verifique se o diretório bin do MiKTeX foi adicionado ao `PATH` (normalmente algo como `C:\Program Files\MiKTeX\miktex\bin\x64`). Para checar, abra PowerShell e rode:
+
+```powershell
+Get-Command pdflatex
+pdflatex --version
+```
+
+- Instale o Pygments (para `minted`) com pip:
+
+```powershell
+py -3 -m pip install --user Pygments
+pygmentize --version
+```
+
+- Alternativa automática (se usar Chocolatey):
+
+```powershell
+choco install miktex
+```
+
+Fedora
+- Instale o TeX Live completo (suficiente para a maioria dos projetos LaTeX):
+
+```bash
+sudo dnf install texlive-scheme-full
+```
+
+- Instale o Pygments (pacote do sistema) ou via pip:
+
+```bash
+sudo dnf install python3-pygments
+# ou, via pip para o usuário:
+python3 -m pip install --user Pygments
+pygmentize --version
+```
+
+Ubuntu / Debian
+- Atualize repositórios e instale o TeX Live completo e Pygments:
+
+```bash
+sudo apt update
+sudo apt install texlive-full python3-pygments
+pygmentize --version
+```
+
+- Observação: `texlive-full` instala muitos pacotes (é grande). Se quiser um conjunto menor, instale os meta-pacotes `texlive-latex-recommended`, `texlive-latex-extra`, `texlive-fonts-recommended`, `texlive-bibtex-extra` conforme a necessidade.
+
+Boas práticas
+- Após instalar, confirme que `pdflatex`, `bibtex` e `pygmentize` estão visíveis no `PATH` (rodando `pdflatex --version`, `bibtex --version`, `pygmentize --version`).
+- Lembre-se de compilar com `-shell-escape` quando usar `minted`.
+- Em ambientes corporativos com restrições de rede, habilite a instalação automática de pacotes no MiKTeX ou instale os pacotes faltantes manualmente via MiKTeX Console.
+
+
 ## Estrutura de build
 - Ferramenta principal: `pdflatex` com `-shell-escape`.
 - Bibliografia: `bibtex` (estilo abntex2-alf), seguido de mais duas rodadas de `pdflatex`.
@@ -60,6 +120,29 @@ Tarefas (Tasks) opcionais em `.vscode/tasks.json` para builds pela paleta (Ctrl+
   ]
 }
 ```
+-
+## Setup no Windows (script)
+
+Há um script PowerShell incluído em `setup/scripts/setup_vscode_tex.ps1` para automatizar a criação de `/.vscode/settings.json` e `/.vscode/tasks.json` com configurações adaptadas para Windows.
+
+O script faz o seguinte:
+- Cria a pasta `.vscode` (se não existir).
+- Escreve um `settings.json` com as ferramentas/receitas do LaTeX Workshop (mesma configuração apresentada acima).
+- Escreve um `tasks.json` onde a tarefa que executa o fluxo com bibliografia usa `cmd /c` para permitir encadeamento com `&&` no Windows.
+
+Como executar (a partir da raiz do repositório):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup\scripts\setup_vscode_tex.ps1
+```
+
+Observações e boas práticas:
+- O `-ExecutionPolicy Bypass` aplica-se apenas a esta invocação e evita erros de política de execução de scripts. Se preferir, abra o PowerShell como Administrador e ajuste a política com cautela (`Set-ExecutionPolicy RemoteSigned`) antes de rodar.
+- Não é necessário executar como Administrador para criar a pasta `.vscode` na raiz do repositório — faça isso somente se receber erros de permissão.
+- Verifique que o `pdflatex` e o `bibtex` estão no `PATH` (instale TeX Live ou MiKTeX) e que `pygmentize` (Pygments) está instalado se usar `minted`.
+- Após rodar o script, abra a pasta no VS Code; a extensão LaTeX Workshop reconhecerá as receitas e você poderá usar a barra de status para compilar ou "Run Task" → "Build LaTeX with bibliography".
+
+Nota: o comentário interno no script traz um caminho relativo diferente (`.\tutorial\scripts\...`); o caminho correto para este repositório é `setup/scripts/setup_vscode_tex.ps1` conforme mostrado acima.
 
 Notas:
 - No BibTeX, use o nome base do arquivo (`main`), não `main.aux`.
