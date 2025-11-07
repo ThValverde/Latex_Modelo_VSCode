@@ -92,6 +92,7 @@ Crie/edite `.vscode/settings.json` com as ferramentas e receitas:
     { "name": "pdfLaTeX", "tools": ["pdflatex"] }
   ],
   "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.method": "glob",
   "latex-workshop.latex.clean.fileTypes": ["*.aux", "*.bbl", "*.blg", "*.idx", "*.ind", "*.lof", "*.lot", "*.out", "*.toc", "*.acn", "*.acr", "*.alg", "*.glg", "*.glo", "*.gls", "*.fls", "*.log", "*.fdb_latexmk", "*.snm", "*.nav", "*.vrb", "*.synctex.gz", "*.synctex(busy)", "*/_minted*", "*.figlist", "*.makefile", "*.run.xml"],
   "latex-workshop.view.pdf.viewer": "tab"
 }
@@ -147,6 +148,7 @@ Nota: o comentário interno no script traz um caminho relativo diferente (`.\tut
 Notas:
 - No BibTeX, use o nome base do arquivo (`main`), não `main.aux`.
 - Para shells diferentes, adapte o comando da segunda tarefa (o uso de `bash -lc` garante operadores como `&&`).
+- O `latex-workshop.latex.clean.method` está ajustado para `glob`, então a extensão apaga diretamente os arquivos listados em `latex-workshop.latex.clean.fileTypes` e não precisa do `latexmk` instalado apenas para limpeza.
 
 ## Como compilar
 - Método recomendado: LaTeX Workshop → selecione a receita "pdfLaTeX ➞ BibTeX ➞ pdfLaTeX × 2" no status bar; clique para compilar.

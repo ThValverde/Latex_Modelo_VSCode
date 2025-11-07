@@ -1,7 +1,7 @@
 # Windows PowerShell setup script for VS Code LaTeX configuration
 # Creates .vscode/settings.json and .vscode/tasks.json adapted for Windows
 # Usage (from repo root):
-#   powershell -ExecutionPolicy Bypass -File .\tutorial\scripts\setup_vscode_tex.ps1
+#   powershell -ExecutionPolicy Bypass -File .\setup\scripts\setup_vscode_tex.ps1
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -24,6 +24,7 @@ $settings = @'
     { "name": "pdfLaTeX", "tools": ["pdflatex"] }
   ],
   "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.method": "glob",
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux","*.bbl","*.blg","*.idx","*.ind","*.lof","*.lot","*.out","*.toc","*.acn","*.acr","*.alg","*.glg","*.glo","*.gls","*.fls","*.log","*.fdb_latexmk","*.snm","*.nav","*.vrb","*.synctex.gz","*.synctex(busy)","*/_minted*","*.figlist","*.makefile","*.run.xml"
   ],
