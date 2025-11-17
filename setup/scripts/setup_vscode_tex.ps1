@@ -28,7 +28,16 @@ $settings = @'
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux","*.bbl","*.blg","*.idx","*.ind","*.lof","*.lot","*.out","*.toc","*.acn","*.acr","*.alg","*.glg","*.glo","*.gls","*.fls","*.log","*.fdb_latexmk","*.snm","*.nav","*.vrb","*.synctex.gz","*.synctex(busy)","*/_minted*","*.figlist","*.makefile","*.run.xml"
   ],
-  "latex-workshop.view.pdf.viewer": "tab"
+  "latex-workshop.view.pdf.viewer": "tab",
+  "commentTranslate.targetLanguage": "pt",
+  "ltex.language": "pt-BR",
+  "latex-workshop.formatting.latex": "latexindent",
+  "[latex]": {
+    "editor.wordWrap": "on"
+  },
+  "[bibtex]": {
+    "editor.wordWrap": "on"
+  }
 }
 '@
 

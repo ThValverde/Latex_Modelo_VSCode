@@ -85,6 +85,25 @@ Requer `-shell-escape` na compilação e o pacote `pygments` instalado no sistem
 3) Adicione suas referências no `referencias.bib` e cite no texto.
 4) Compile conforme descrito acima.
 
+## Extensões VS Code recomendadas
+- LaTeX Workshop: principal integração de build, receitas e preview.
+- LTeX+: verificação gramatical/ortográfica via LanguageTool.
+  - Configuração já usada nos scripts: `"ltex.language": "pt-BR"`.
+  - Para adicionar palavras técnicas, use a paleta: `LTeX: Add Word to Dictionary`.
+  - Pode combinar idiomas: `"ltex.language": ["pt-BR", "en-US"]` se escrever parte em inglês.
+  - Dicionários locais ficam em arquivos `ltex.dictionary.*.txt` dentro de `.vscode` (dependendo da versão da extensão).
+- Comment Translate: tradução rápida de comentários/trechos (`"commentTranslate.targetLanguage": "pt"`).
+- (Opcional) GitLens, EditorConfig, Markdown All in One.
+
+Resumo de chaves extras presentes:
+```jsonc
+"commentTranslate.targetLanguage": "pt",
+"ltex.language": "pt-BR",
+"latex-workshop.formatting.latex": "latexindent",
+"[latex]": {"editor.wordWrap": "on"},
+"[bibtex]": {"editor.wordWrap": "on"}
+```
+
 ## Problemas comuns
 - “-shell-escape required” ou erro com `minted`: adicione a flag de compilação e instale o Pygments.
 - Citações “Undefined”: execute a receita completa com BibTeX e confira as chaves do `.bib`.

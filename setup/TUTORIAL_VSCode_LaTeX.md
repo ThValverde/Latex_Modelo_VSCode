@@ -94,7 +94,16 @@ Crie/edite `.vscode/settings.json` com as ferramentas e receitas:
   "latex-workshop.latex.autoClean.run": "onBuilt",
   "latex-workshop.latex.clean.method": "glob",
   "latex-workshop.latex.clean.fileTypes": ["*.aux", "*.bbl", "*.blg", "*.idx", "*.ind", "*.lof", "*.lot", "*.out", "*.toc", "*.acn", "*.acr", "*.alg", "*.glg", "*.glo", "*.gls", "*.fls", "*.log", "*.fdb_latexmk", "*.snm", "*.nav", "*.vrb", "*.synctex.gz", "*.synctex(busy)", "*/_minted*", "*.figlist", "*.makefile", "*.run.xml"],
-  "latex-workshop.view.pdf.viewer": "tab"
+  "latex-workshop.view.pdf.viewer": "tab",
+  "commentTranslate.targetLanguage": "pt",
+  "ltex.language": "pt-BR",
+  "latex-workshop.formatting.latex": "latexindent",
+  "[latex]": {
+    "editor.wordWrap": "on"
+  },
+  "[bibtex]": {
+    "editor.wordWrap": "on"
+  }
 }
 ```
 
@@ -181,3 +190,40 @@ Notas:
 - `pygmentize` detectado no sistema.
 
 Pronto! Com isso, você deve conseguir replicar a configuração em outra máquina/projeto rapidamente.
+
+## Extensões adicionais recomendadas
+
+Além da LaTeX Workshop, recomenda‑se instalar:
+
+1. LTeX+ — Grammar/Spell Checking (LanguageTool)
+  - Marketplace: busque por `LTeX+` (do autor Tobias Kley ou similar).
+  - Já incluímos em `settings.json` a chave: `"ltex.language": "pt-BR"` para verificação em Português do Brasil.
+  - Para textos mistos (ex.: termos técnicos em inglês), você pode adicionar ao dicionário do usuário:
+    - Comando: abra a paleta (Ctrl+Shift+P) → `LTeX: Add Word to Dictionary` quando a palavra aparecer como erro.
+    - Cria/atualiza arquivo `.vscode/ltex.dictionary.pt-BR.txt` (se suportado pela versão da extensão).
+  - Ignorar frases/trechos: selecione e use `LTeX: Disable Rule for Selection` ou comente manualmente usando `%` se for algo temporário.
+  - Regras específicas ABNT: ainda não há conjunto oficial; aceite variações (ex.: maiúsculas/acentos) ajustando manualmente.
+  - Se desejar outros idiomas simultâneos, configure:
+    ```jsonc
+    "ltex.language": ["pt-BR", "en-US"]
+    ```
+    e gerencie dicionários separados.
+  - Modo offline: é possível usar um servidor local do LanguageTool; caso não, a extensão utiliza o serviço remoto.
+
+2. Comment Translate
+  - Já configurado: `"commentTranslate.targetLanguage": "pt"`.
+  - Útil para traduzir comentários ou trechos selecionados (Ctrl+Shift+P → Comment Translate...).
+
+3. (Opcional) GitLens / EditorConfig / Markdown All in One
+  - Auxiliam em revisão, formatação padronizada e edição de README.
+
+### Resumo rápido das chaves adicionadas
+```jsonc
+"commentTranslate.targetLanguage": "pt",
+"ltex.language": "pt-BR",
+"latex-workshop.formatting.latex": "latexindent",
+"[latex]": {"editor.wordWrap": "on"},
+"[bibtex]": {"editor.wordWrap": "on"}
+```
+
+Essas opções já aparecem nos scripts de setup e no bloco de exemplo acima; rode o script adequado ao seu sistema para gerar `/.vscode/settings.json` automaticamente.
