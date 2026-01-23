@@ -6,6 +6,7 @@ Este guia documenta como replicar a configuração que está funcionando neste p
 - TeX Live completo (recomendado) ou MikTeX (Windows). Em Linux/Debian/Ubuntu: `sudo apt install texlive-full`.
 - Python 3 + Pygments (para o pacote minted): `pip install pygments` e verifique `pygmentize --version`.
 - VS Code + extensão LaTeX Workshop (James Yu). Extensão Git instalada (padrão). Opcional: extensão GitDoc (auto-commit).
+- (Opcional) LTeX+ (ltex-plus.vscode-ltex-plus) — verificação gramatical/ortográfica automática via LanguageTool; Marketplace: https://marketplace.visualstudio.com/items?itemName=ltex-plus.vscode-ltex-plus
 
 Observação importante: minted exige compilar com a flag `-shell-escape` para invocar `pygmentize`.
 

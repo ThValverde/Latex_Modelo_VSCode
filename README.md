@@ -8,6 +8,7 @@ Projeto base para trabalhos acadêmicos seguindo ABNT NBR 14724 (estrutura e pag
 - TeX Live completo (recomendado) ou distribuição equivalente com `pdflatex` e `bibtex`.
 - Python 3 + Pygments (para `minted`): `pip install pygments`.
 - VS Code + extensão LaTeX Workshop (opcional, porém recomendado).
+- (Opcional) LTeX+ (ltex-plus.vscode-ltex-plus) — verificação gramatical/ortográfica automática via LanguageTool; Marketplace: https://marketplace.visualstudio.com/items?itemName=ltex-plus.vscode-ltex-plus
 
 Observação: para compilar com `minted` é obrigatório usar a flag `-shell-escape`.
 
@@ -115,4 +116,4 @@ Resumo de chaves extras presentes:
 - Estilos/classe USPSC incluídos em `assets/bib/usp/USPSC-classe/`.
 
 ## Licença
-Este README foi gerado automaticamente através do Agente GPT-5.
+Este README foi gerado automaticamente através do Agente GPT-5 e Gemini 2.5 Pro.
