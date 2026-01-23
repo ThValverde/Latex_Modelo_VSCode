@@ -116,4 +116,8 @@ Resumo de chaves extras presentes:
 - Estilos/classe USPSC incluídos em `assets/bib/usp/USPSC-classe/`.
 
 ## Licença
+Este projeto está licenciado sob a Licença GNU GENERAL PUBLIC LICENSE. 
+Veja o arquivo `LICENSE` para mais detalhes.
+
+## Autoria
 Este README foi gerado automaticamente através do Agente GPT-5 e Gemini 2.5 Pro.
