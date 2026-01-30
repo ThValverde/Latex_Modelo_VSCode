@@ -2,7 +2,7 @@
 
 Projeto base para trabalhos acadêmicos seguindo ABNT NBR 14724 (estrutura e paginação), usando a classe abnTeX2, citações/refs no padrão ABNT (BibTeX) e destaque de código com `minted`. Preparado para uso no VS Code com LaTeX Workshop.
 
-> Guia completo de setup no VS Code: veja `tutorial/TUTORIAL_VSCode_LaTeX.md`.
+> Guia completo de setup no VS Code: veja `setup/TUTORIAL_VSCode_LaTeX.md`.
 
 ## Requisitos
 - TeX Live completo (recomendado) ou distribuição equivalente com `pdflatex` e `bibtex`.
