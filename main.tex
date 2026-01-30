@@ -16,24 +16,29 @@ brazil
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
 \usepackage[
-a4paper,
-top=2cm,
-bottom=2cm,
-left=3cm,
-right=3cm,
-marginparwidth=1.75cm
+    a4paper,
+    top=3cm,
+    bottom=2cm,
+    left=3cm,
+    right=2cm, % ABNT
+    % marginparwidth=1.75cm % Optional
 ]{geometry}
 
-\renewcommand{\rmdefault}{ptm} % Times New Roman
-\renewcommand{\sfdefault}{phv} % Helvetica
+% --- PACOTES DE FONTES ---
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}      % Times New Roman
+\usepackage[scaled]{helvet} % Helvetica
+\usepackage{courier}       % Courier
+% --- FORÇAR TIMES NEW ROMAN NOS TÍTULOS ---
+\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
+\renewcommand{\ABNTEXsectionfont}{\rmfamily\bfseries}
+\renewcommand{\ABNTEXsubsectionfont}{\rmfamily\bfseries}
+\renewcommand{\ABNTEXsubsubsectionfont}{\rmfamily\bfseries}
 
 \usepackage{pdfpages}
-
-
 \usepackage{minted}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\geometry{a4paper, margin=1in}
 % Useful packages
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -42,85 +47,49 @@ marginparwidth=1.75cm
 \setlength{\intextsep}{1ex}
 \usepackage{caption}
 %\captionsetup{skip=5pt}
-\usepackage{titlesec}
 \usepackage{nameref}
 \usepackage{ragged2e}
-
 \usepackage{csquotes}
-
 \usepackage[vskip=0pt]{quoting}
-
 \SetBlockEnvironment{quoting}
-
-
-\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
-\titlespacing*{\subsection}{0pt}{\baselineskip}{\baselineskip}
-\setlength{\parskip}{\baselineskip}
-
-
 \usepackage{indentfirst}
 \setlength{\parskip}{0.0cm}
-
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-\usepackage{titlesec}
-
-% Define font for section numbers
-\titleformat{\section}
-  {\normalfont\bfseries\fontfamily{ptm}\selectfont\Large}
-  {\thesection}{1em}{}
-
-% Define font for subsection numbers
-\titleformat{\subsection}
-  {\normalfont\bfseries\fontfamily{ptm}\selectfont}
-  {\thesubsection}{1em}{}
-
-\titleformat{\subsubsection}
-  {\normalfont\bfseries\fontfamily{ptm}\selectfont}
-  {\thesubsubsection}{1em}{}
-%=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-% ALTERAÇÃO DO COMANDO LISTA DE ILUSTRAÇÕES
+% %=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+% ALTERAÇÃO DO COMANDO LISTA DE ILUSTRAÇÕES - CAPSLOCK
 \addto\captionsbrazil{\renewcommand{\listfigurename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE ILUSTRAÇÕES}}}
-
 % ALTERAÇÃO DO COMANDO LISTA DE TABELAS
 \addto\captionsbrazil{\renewcommand{\listtablename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE TABELAS}}}
-
 \usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite=3, abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite}
 %\bibliographystyle{USPSC-classe/abntex2-alf-USPSC}
-
 % =============================================================================
 % CONFIGURAÇÃO DE NUMERAÇÃO DE PÁGINAS CONFORME ABNT NBR 14724:2011
 % =============================================================================
-
 % Configuração do estilo de página para elementos textuais 
 % Numeração no canto superior direito conforme ABNT
 \makepagestyle{abntpages}
 \makeevenhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}
 \makeoddhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}
-
 % Remove numeração de páginas especiais (capítulos, etc.)
 \aliaspagestyle{chapter}{empty}
 \aliaspagestyle{cleared}{empty}
 \aliaspagestyle{part}{empty}
-
-%=====================================================================
+% =============================================================================
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% =============================================================================
 \title{TITULO DO PROJETO}%opicional-não aparece no documento
 \author{NOME}%opicional-não aparece no documento
-
-%=====================================================================
+% =============================================================================
 \begin{document}
-
 % =============================================================================
 % ELEMENTOS PRÉ-TEXTUAIS
 % Conforme ABNT: contados a partir da folha de rosto, mas sem numeração visível
 % =============================================================================
-
 % Inicia contagem de páginas, mas sem mostrar numeração
 \pagenumbering{arabic}
 \pagestyle{empty}
-
 % CAPA (não conta para numeração segundo ABNT)
 \begin{center}
-%=====================================================================
+% =============================================================================
 %\includegraphics[width=0.75\linewidth]{logo_eesc_horizontal_com_subtitulo_portugues.pdf}\%\includegraphics[width=0.75\linewidth]{logo_eesc_horizontal_com_subtitulo_portugues.pdf}\\ 
 %logo faculdade - opcional - ajustar altura em vspace caso não for utilizar (para 4 e 6 - recomendação)
 \textbf{UNIVERSIDADE}\\
@@ -152,18 +121,25 @@ Título}}\\
 \end{center}
 
 % Fim da CAPA - a partir daqui inicia contagem das páginas
-
-%=====================================================================  
-% SUMÁRIO (Elemento pré-textual - contado mas não numerado)
-
 \newpage
-%\addcontentsline{toc}{chapter}{LISTA DE ILUSTRAÇÕES}
-%\listoffigures
-%\cleardoublepage
+\cleardoublepage
 
-% Sumário
+% =============================================================================
+% LISTAS (ILUSTRAÇÕES E TABELAS)
+% =============================================================================
+% --- Lista de Ilustrações ---
+\pdfbookmark[0]{\listfigurename}{lof} % Adiciona link no menu lateral do PDF
+\listoffigures* % Gera a lista
+\cleardoublepage
+% --- Lista de Tabelas ---
+\pdfbookmark[0]{\listtablename}{lot}  % Adiciona link no menu lateral do PDF
+\listoftables % Gera a lista
+\cleardoublepage
+% =============================================================================
+% SUMÁRIO
+% =============================================================================
 \chapter*{\textbf{\fontfamily{ptm}\selectfont SUMÁRIO}}
-%\addcontentsline{toc}{chapter}{SUMÁRIO}
+\addcontentsline{toc}{chapter}{SUMÁRIO}
 \justifying
 
 \makeatletter
@@ -182,25 +158,21 @@ Título}}\\
 \tableofcontents
 %\cleardoublepage
 \newpage
-
 % =============================================================================
 % ELEMENTOS TEXTUAIS  
 % Conforme ABNT: primeira página com numeração visível (introdução)
 % =============================================================================
-
 % Ativa numeração visível no canto superior direito
 \pagestyle{abntpages} % comente para tirar a numeração
-
 %=====================================================================
 \include{1introdução}
 \include{2desenvolvimento}
 \include{3conclusao}
-
+\include{4imagens}
 % =============================================================================
 % ELEMENTOS PÓS-TEXTUAIS
 % Conforme ABNT: mantém numeração sequencial
 % =============================================================================
-
 \postextual
 % ----------------------------------------------------------
 
