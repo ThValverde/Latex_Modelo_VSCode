@@ -1,6 +1,6 @@
-# Modelo LaTeX — ABNT (abnTeX2) — 2025 2º semestre
+# Modelo LaTeX — ABNT (abnTeX2) — 2026 1º semestre
 
-Projeto base para trabalhos acadêmicos seguindo ABNT NBR 14724 (estrutura e paginação), usando a classe abnTeX2, citações/refs no padrão ABNT (BibTeX) e destaque de código com `minted`. Preparado para uso no VS Code com LaTeX Workshop.
+Projeto simplfiicado base para trabalhos acadêmicos conforme normas ABNT, utilizando a classe `abntex2` e o pacote `abntex2cite`. Inclui exemplos de capítulos, citações, figuras, tabelas e destaque de código com `minted`.
 
 > Guia completo de setup no VS Code: veja `setup/TUTORIAL_VSCode_LaTeX.md`.
 
@@ -120,4 +120,4 @@ Este projeto está licenciado sob a Licença GNU GENERAL PUBLIC LICENSE.
 Veja o arquivo `LICENSE` para mais detalhes.
 
 ## Autoria
-Este README foi gerado automaticamente através do Agente GPT-5 e Gemini 2.5 Pro.
+Este README foi com auxílio do Agente GPT-5 e Gemini 2.5 Pro.
