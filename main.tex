@@ -1,34 +1,31 @@
 \documentclass[
-article,
-hidelinks,
-12pt,
-openright,
-twoside,
-a4paper,
-sumario = tradicional,
-brazil
+    article,
+    hidelinks,
+    12pt,
+    openright,
+    twoside,
+    a4paper,
+    sumario = tradicional,
+    brazil
 ]{abntex2}
-% Language setting
 
-% Replace `english' with e.g. `spanish' to change the document language
-\usepackage {babel}
+\usepackage{babel}
 
-% Set page size and margins
-% Replace `letterpaper' with `a4paper' for UK/EU standard size
+% --- GEOMETRIA (Margens ABNT) ---
 \usepackage[
     a4paper,
     top=3cm,
     bottom=2cm,
     left=3cm,
-    right=2cm, % ABNT
-    % marginparwidth=1.75cm % Optional
+    right=2cm
 ]{geometry}
 
-% --- PACOTES DE FONTES ---
+% --- FONTES (Times New Roman) ---
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx}      % Times New Roman
+\usepackage{mathptmx}       % Times New Roman
 \usepackage[scaled]{helvet} % Helvetica
-\usepackage{courier}       % Courier
+\usepackage{courier}        % Courier
+
 % --- FORÇAR TIMES NEW ROMAN NOS TÍTULOS ---
 \renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
 \renewcommand{\ABNTEXsectionfont}{\rmfamily\bfseries}
@@ -39,14 +36,12 @@ brazil
 \usepackage{minted}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-% Useful packages
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{soul}
 \setlength{\intextsep}{1ex}
 \usepackage{caption}
-%\captionsetup{skip=5pt}
 \usepackage{nameref}
 \usepackage{ragged2e}
 \usepackage{csquotes}
@@ -54,87 +49,101 @@ brazil
 \SetBlockEnvironment{quoting}
 \usepackage{indentfirst}
 \setlength{\parskip}{0.0cm}
-% %=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-% ALTERAÇÃO DO COMANDO LISTA DE ILUSTRAÇÕES - CAPSLOCK
+
+% --- AJUSTES DE LISTAS (CAIXA ALTA e TIMES) ---
 \addto\captionsbrazil{\renewcommand{\listfigurename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE ILUSTRAÇÕES}}}
-% ALTERAÇÃO DO COMANDO LISTA DE TABELAS
 \addto\captionsbrazil{\renewcommand{\listtablename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE TABELAS}}}
+
+% --- CITAÇÕES ---
 \usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite=3, abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite}
-%\bibliographystyle{USPSC-classe/abntex2-alf-USPSC}
-% =============================================================================
-% CONFIGURAÇÃO DE NUMERAÇÃO DE PÁGINAS CONFORME ABNT NBR 14724:2011
-% =============================================================================
-% Configuração do estilo de página para elementos textuais 
-% Numeração no canto superior direito conforme ABNT
+
+% --- ESTILO DE PÁGINA ---
 \makepagestyle{abntpages}
 \makeevenhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}
 \makeoddhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}
-% Remove numeração de páginas especiais (capítulos, etc.)
 \aliaspagestyle{chapter}{empty}
 \aliaspagestyle{cleared}{empty}
 \aliaspagestyle{part}{empty}
+
 % =============================================================================
-% Informações de dados para CAPA e FOLHA DE ROSTO
-% =============================================================================
-\title{TITULO DO PROJETO}%opicional-não aparece no documento
-\author{NOME}%opicional-não aparece no documento
+% INÍCIO DO DOCUMENTO
 % =============================================================================
 \begin{document}
-% =============================================================================
-% ELEMENTOS PRÉ-TEXTUAIS
-% Conforme ABNT: contados a partir da folha de rosto, mas sem numeração visível
-% =============================================================================
-% Inicia contagem de páginas, mas sem mostrar numeração
-\pagenumbering{arabic}
+
+% Inicia sem numeração visível
 \pagestyle{empty}
-% CAPA (não conta para numeração segundo ABNT)
-\begin{center}
+
 % =============================================================================
-%\includegraphics[width=0.75\linewidth]{logo_eesc_horizontal_com_subtitulo_portugues.pdf}\%\includegraphics[width=0.75\linewidth]{logo_eesc_horizontal_com_subtitulo_portugues.pdf}\\ 
-%logo faculdade - opcional - ajustar altura em vspace caso não for utilizar (para 4 e 6 - recomendação)
-\textbf{UNIVERSIDADE}\\
-\textbf{INSTITUTO}\\
-\textbf{DEPARTAMENTO}\\
-\vspace{1.5cm}
-\textbf{SIGLA - DISCIPLINA\\Prof(a). Dr(a). NOME}\\
-\textbf{Estagiário/Monitor}\\
-\vspace{3.5cm}
-{\fontsize{18pt}{22.5pt}\selectfont \textbf{
-Título}}\\
-
-\vspace{3.5cm}
-\noindent\textbf{DISCENTES:}
-
-\vspace{1cm}
-
-\hspace*{5.8cm} % <-- ajuste aqui para alinhar com o "D" acima
-\begin{tabular}{@{}l l@{}}
-\textbf{NOME} & \textbf{NUSP} \\
-\textbf{NOME} & \textbf{NUSP} \\
-\textbf{NOME} & \textbf{NUSP} \\
-\textbf{NOME} & \textbf{NUSP} \\
-\end{tabular}
-\vfill
+% 1. CAPA (Manual)
+% =============================================================================
 \begin{center}
-{São Carlos\\2025}  
+    \textbf{UNIVERSIDADE}\\
+    \textbf{INSTITUTO}\\
+    \textbf{DEPARTAMENTO}\\
+    \vspace{1.5cm}
+    \textbf{SIGLA - DISCIPLINA\\Prof(a). Dr(a). NOME}\\
+    \vspace{3.5cm}
+    {\fontsize{18pt}{22.5pt}\selectfont \textbf{TÍTULO DO TRABALHO}}\\
+    \vspace{3.5cm}
+    
+    \noindent\textbf{DISCENTES:}
+    \hspace*{5.8cm}
+    \vspace{1cm}
+    \begin{tabular}{@{}l l@{}}
+        \textbf{NOME DO ALUNO 1} & \textbf{NUSP} \\
+        \textbf{NOME DO ALUNO 2} & \textbf{NUSP} \\
+        \textbf{NOME DO ALUNO 3} & \textbf{NUSP} \\
+    \end{tabular}
+    
+    \vfill
+    {São Carlos\\2025}  
 \end{center}
-\end{center}
+% =============================================================================
 
-% Fim da CAPA - a partir daqui inicia contagem das páginas
-\newpage
+% Garante que a folha de rosto seja uma página ÍMPAR (Frente)
+\cleardoublepage 
+
+% =============================================================================
+% 2. FOLHA DE ROSTO (Manual - Para manter consistência com a Capa)
+% =============================================================================
+% ABNT: A contagem de páginas começa aqui (Ficha de rosto é pag 1 ou 2), 
+% mas o número não aparece.
+\begin{center}
+    % Repete os nomes
+    \textbf{NOME DO ALUNO 1}\\
+    \textbf{NOME DO ALUNO 2}\\
+    \textbf{NOME DO ALUNO 3}\\
+    
+    \vspace{3.5cm}
+
+    {\fontsize{18pt}{22.5pt}\selectfont \textbf{TÍTULO DO TRABALHO}}\\
+    \vspace{3.5cm}
+    \hspace{.45\textwidth}
+    \begin{minipage}{.5\textwidth}
+        \SingleSpacing
+        Trabalho acadêmico apresentado ao Instituto tal, da Universidade tal, como requisito parcial para aprovação na disciplina SIGLA - Nome da Disciplina.
+        \vspace{\baselineskip}
+        Orientador: Prof. Dr. Nome do Professor.
+    \end{minipage}
+
+    \vfill
+    {São Carlos\\2026}
+\end{center}
 \cleardoublepage
-
 % =============================================================================
-% LISTAS (ILUSTRAÇÕES E TABELAS)
+% =============================================================================
+% LISTAS
 % =============================================================================
 % --- Lista de Ilustrações ---
-\pdfbookmark[0]{\listfigurename}{lof} % Adiciona link no menu lateral do PDF
-\listoffigures* % Gera a lista
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
 \cleardoublepage
+
 % --- Lista de Tabelas ---
-\pdfbookmark[0]{\listtablename}{lot}  % Adiciona link no menu lateral do PDF
-\listoftables % Gera a lista
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables* % <--- ADICIONADO O ASTERISCO (Correção Importante)
 \cleardoublepage
+
 % =============================================================================
 % SUMÁRIO
 % =============================================================================
@@ -144,7 +153,6 @@ Título}}\\
 
 \makeatletter
 \renewcommand{\tableofcontents}{%
-
   \begingroup
   \patchcmd{\@makeschapterhead}
     {\@chapapp\space}
@@ -156,32 +164,27 @@ Título}}\\
 }
 \makeatother
 \tableofcontents
-%\cleardoublepage
-\newpage
+\cleardoublepage
 % =============================================================================
-% ELEMENTOS TEXTUAIS  
-% Conforme ABNT: primeira página com numeração visível (introdução)
+% ELEMENTOS TEXTUAIS 
 % =============================================================================
-% Ativa numeração visível no canto superior direito
-\pagestyle{abntpages} % comente para tirar a numeração
-%=====================================================================
-\include{1introdução}
+
+% Ativa a numeração nas páginas
+\pagestyle{abntpages} 
+
+% Reinicia contagem se necessário ou segue fluxo. 
+% O abntex2 conta capa, mas usualmente a introdução cai na pag 3, 5 ou 7.
+
+% Para testar sem os arquivos externos, descomente abaixo:
+\include{1introdução} 
 \include{2desenvolvimento}
 \include{3conclusao}
 \include{4imagens}
+
 % =============================================================================
 % ELEMENTOS PÓS-TEXTUAIS
-% Conforme ABNT: mantém numeração sequencial
 % =============================================================================
 \postextual
-% ----------------------------------------------------------
-
-% -----------------------------------------------------------
-% Referências bibliográficas
-% ----------------------------------------------------------
 \bibliography{referencias}
-
-
-
 
 \end{document}
