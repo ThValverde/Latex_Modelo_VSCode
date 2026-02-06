@@ -100,3 +100,4 @@ Implementa NBR 14724 com impressão frente e verso (`twoside`):
 - Baseado na classe [abnTeX2](https://github.com/abntex/abntex2).
 - Utiliza `minted` e Pygments para código.
 - Licença GPL — veja `LICENSE`.
+- Esse documento foi gerado com auxílio das IAs generativas ChatGPT e Gemini.
