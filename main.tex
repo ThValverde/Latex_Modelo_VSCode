@@ -1,190 +1,344 @@
+ 
+
+% =============================================================================
+% TEMPLATE DE RELATÓRIO DE INICIAÇÃO CIENTÍFICA- USP
+% =============================================================================
+% Este template foi desenvolvido para facilitar a elaboração de relatórios
+% de Iniciação Científica seguindo as normas da ABNT e padrões da USP.
+% 
+% Autor: Thiago de Castro Valverde
+% Última atualização: Março de 2026
+% =============================================================================
+
+% --- CONFIGURAÇÃO DA CLASSE DO DOCUMENTO ---
 \documentclass[
-    article,
-    hidelinks,
-    12pt,
-    openright,
-    twoside,
-    a4paper,
-    sumario = tradicional,
-    brazil
+    article,           % Tipo de documento (artigo)
+    hidelinks,         % Remove bordas dos hyperlinks
+    11pt,              % Tamanho da fonte base
+    openright,         % Capítulos começam em página ímpar
+    twoside,           % Impressão frente e verso
+    a4paper,           % Tamanho do papel
+    sumario = tradicional,  % Estilo do sumário
+    brazil             % Idioma principal
 ]{abntex2}
 
 \usepackage{babel}
 
-% --- GEOMETRIA (Margens ABNT) ---
+% --- GEOMETRIA DA PÁGINA (Margens segundo ABNT) ---
 \usepackage[
     a4paper,
-    top=3cm,
-    bottom=2cm,
-    left=3cm,
-    right=2cm
+    top=3cm,           % Margem superior: 3 cm
+    bottom=2cm,        % Margem inferior: 2 cm
+    left=3cm,          % Margem esquerda: 3 cm
+    right=2cm          % Margem direita: 2 cm
 ]{geometry}
 
-% --- FONTES (Times New Roman) ---
+% --- CONFIGURAÇÃO DE FONTES ---
+% Times New Roman como fonte principal do documento
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx}       % Times New Roman
-\usepackage[scaled]{helvet} % Helvetica
-\usepackage{courier}        % Courier
+\usepackage{mathptmx}       % Times New Roman para texto normal
+\usepackage[scaled]{helvet} % Helvetica para fontes sans-serif
+\usepackage{courier}        % Courier para fontes monoespaçadas
 
-% --- FORÇAR TIMES NEW ROMAN NOS TÍTULOS ---
-\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
-\renewcommand{\ABNTEXsectionfont}{\rmfamily\bfseries}
-\renewcommand{\ABNTEXsubsectionfont}{\rmfamily\bfseries}
-\renewcommand{\ABNTEXsubsubsectionfont}{\rmfamily\bfseries}
+% --- FORMATAÇÃO DE TÍTULOS E SEÇÕES ---
+% Garante que todos os títulos usem Times New Roman e sigam padrões ABNT
+\usepackage{titlesec}
 
-\usepackage{pdfpages}
-\usepackage{minted}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{float}
-\usepackage{soul}
-\setlength{\intextsep}{1ex}
-\usepackage{caption}
-\usepackage{nameref}
-\usepackage{ragged2e}
-\usepackage{csquotes}
-\usepackage[vskip=0pt]{quoting}
+% Formato das seções principais
+\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3ex}{1.5ex}
+
+% Formato das subseções
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{3ex}{1.5ex}
+
+% Formato das subsubseções
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{3ex}{1.5ex}
+
+% --- PACOTES ADICIONAIS ---
+\usepackage{pdfpages}           % Permite incluir PDFs externos
+\usepackage{minted}             % Destaque de sintaxe para código-fonte
+\usepackage[utf8]{inputenc}     % Codificação UTF-8
+\usepackage{amsmath}            % Recursos matemáticos avançados
+\usepackage{graphicx}           % Inclusão de figuras
+\usepackage{hyperref}           % Links e referências clicáveis
+\usepackage{refcount}           % Contagem de referências
+\usepackage{float}              % Controle de posicionamento de floats
+\usepackage{soul}               % Recursos de formatação de texto
+\setlength{\intextsep}{1ex}     % Espaçamento entre texto e floats
+\usepackage{caption}            % Personalização de legendas
+\usepackage{nameref}            % Referências por nome
+\usepackage{ragged2e}           % Alinhamento de texto justificado
+\usepackage{csquotes}           % Citações contextuais
+\usepackage[vskip=0pt]{quoting} % Ambiente de citações
 \SetBlockEnvironment{quoting}
-\usepackage{indentfirst}
-\setlength{\parskip}{0.0cm}
+\usepackage{indentfirst}        % Indenta primeiro parágrafo
+\setlength{\parskip}{0.0cm}     % Espaçamento entre parágrafos
 
-% --- AJUSTES DE LISTAS (CAIXA ALTA e TIMES) ---
+% --- PERSONALIZAÇÃO DE LISTAS ---
+% Formata títulos das listas em caixa alta com Times New Roman
 \addto\captionsbrazil{\renewcommand{\listfigurename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE ILUSTRAÇÕES}}}
 \addto\captionsbrazil{\renewcommand{\listtablename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE TABELAS}}}
 
-% --- CITAÇÕES ---
-\usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite=3, abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite}
+% --- CONFIGURAÇÃO DE CITAÇÕES E REFERÊNCIAS ---
+% Citações numéricas seguindo padrões ABNT
+\usepackage[
+    num,                           % Sistema numérico
+    abnt-emphasize=bf,             % Ênfase em negrito
+    abnt-thesis-year=both,         % Ano em teses
+    abnt-repeated-author-omit=no,  % Não omitir autores repetidos
+    abnt-last-names=abnt,          % Formato de sobrenomes ABNT
+    abnt-etal-cite=3,              % "et al." após 3 autores nas citações
+    abnt-etal-list=3,              % "et al." após 3 autores nas referências
+    abnt-etal-text=it,             % "et al." em itálico
+    abnt-and-type=e,               % Usar "e" ao invés de "&"
+    abnt-doi=doi,                  % Incluir DOI
+    abnt-url-package=none,         % Sem pacote específico para URLs
+    abnt-verbatim-entry=no         % Não usar verbatim em entradas
+]{abntex2cite}
+\citebrackets[]
 
-% --- ESTILO DE PÁGINA ---
+% =============================================================================
+% GUIA DE USO DE CITAÇÕES
+% =============================================================================
+% Este template utiliza o sistema numérico de citações ABNT. Exemplos de uso:
+%
+% 1. CITAÇÃO NUMÉRICA BÁSICA:
+%    Comando: \cite{chave}
+%    Resultado: [1]
+%    Exemplo: "Estudos recentes demonstram a eficácia do método \cite{autor2023}."
+%
+% 2. CITAÇÃO COM AUTOR NA SENTENÇA:
+%    Comando: \citeonline{chave}
+%    Resultado: Autor (ano) ou Autor [1] (depende da configuração)
+%    Exemplo: "Segundo \citeonline{autor2023}, a metodologia é adequada."
+%
+% 3. MÚLTIPLAS CITAÇÕES:
+%    Comando: \cite{chave1,chave2,chave3}
+%    Resultado: [1, 2, 3]
+%    Exemplo: "Diversos autores concordam \cite{autor2023,autor2022,autor2021}."
+%
+% 4. CITAÇÃO COM PÁGINA ESPECÍFICA:
+%    Comando: \cite[p.~25]{chave}
+%    Resultado: [1, p. 25]
+%    Exemplo: "Como afirmado \cite[p.~25]{autor2023}, o resultado foi positivo."
+%
+% 5. CITAÇÃO INDIRETA/PARÁFRASE:
+%    Use o mesmo comando \cite{} para citações indiretas
+%    Exemplo: "A teoria da relatividade revolucionou a física \cite{einstein1915}."
+%
+% IMPORTANTE: Todas as referências citadas devem estar no arquivo referencias.bib
+% =============================================================================
+
+% --- ESTILO DE NUMERAÇÃO DE PÁGINAS ---
+% Define cabeçalhos e rodapés personalizados
 \makepagestyle{abntpages}
-\makeevenhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}
-\makeoddhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}
-\aliaspagestyle{chapter}{empty}
-\aliaspagestyle{cleared}{empty}
-\aliaspagestyle{part}{empty}
+\makeevenhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}  % Páginas pares
+\makeoddhead{abntpages}{}{}{\ABNTEXfontereduzida\thepage}   % Páginas ímpares
+\aliaspagestyle{chapter}{empty}   % Capítulos sem numeração
+\aliaspagestyle{cleared}{empty}   % Páginas limpas sem numeração
+\aliaspagestyle{part}{empty}      % Partes sem numeração
 
 % =============================================================================
 % INÍCIO DO DOCUMENTO
 % =============================================================================
 \begin{document}
 
-% Inicia sem numeração visível
+% --- Inicia sem numeração visível de páginas ---
 \pagestyle{empty}
 
 % =============================================================================
-% 1. CAPA (Manual)
+% CAPA DO RELATÓRIO
 % =============================================================================
+% A capa contém as informações institucionais e os dados principais do projeto.
+% Personalize os campos abaixo com as informações específicas do seu projeto.
+% =============================================================================
+
+\raggedright{
+    % Cabeçalho institucional com logo/nome da universidade
+    % Parâmetros: \fontsize{tamanho da fonte}{espaçamento entre linhas}
+    {\fontsize{20pt}{22.5pt}\textbf{UNIVERSIDADE DE SÃO PAULO}}\\
+    
+    % Nome do instituto/faculdade (personalize conforme sua unidade)
+    {\fontsize{12pt}{22.5pt}\text{INSTITUTO DE CIÊNCIAS MATEMÁTICAS E DE COMPUTAÇÃO}}\\
+    
+    % Linha divisória
+    \rule{\linewidth}{0.4pt}
+    
+    % Departamento e site (personalize conforme sua unidade)
+    {\fontsize{9pt}{22.5pt}\textbf{DEPARTAMENTO DE SISTEMAS DE COMPUTAÇÃO}
+    \hfill \text{http://www.site-da-unidade.usp.br}}
+}
+
 \begin{center}
-    \textbf{UNIVERSIDADE}\\
-    \textbf{INSTITUTO}\\
-    \textbf{DEPARTAMENTO}\\
-    \vspace{1.5cm}
-    \textbf{SIGLA - DISCIPLINA\\Prof(a). Dr(a). NOME}\\
-    \vspace{3.5cm}
-    {\fontsize{18pt}{22.5pt}\selectfont \textbf{TÍTULO DO TRABALHO}}\\
-    \vspace{3.5cm}
+    % Espaçamento vertical
+    \vspace{5cm}
     
-    \noindent\textbf{DISCENTES:}
-    \hspace*{5.8cm}
-    \vspace{1cm}
-    \begin{tabular}{@{}l l@{}}
-        \textbf{NOME DO ALUNO 1} & \textbf{NUSP} \\
-        \textbf{NOME DO ALUNO 2} & \textbf{NUSP} \\
-        \textbf{NOME DO ALUNO 3} & \textbf{NUSP} \\
-    \end{tabular}
+    % Tipo de relatório
+    {\fontsize{12pt}{22.5pt}\selectfont \textbf{Relatório Semestral de Iniciação Científica}}\\
     
-    \vfill
-    {São Carlos\\2025}  
+    \vspace{5cm}
+    
+    % Título do projeto (substitua pelo título do seu projeto)
+    {\fontsize{12pt}{22.5pt}\selectfont {Título do Projeto de Iniciação Científica}}\\
+    
+    \vspace{6.5cm}
+    
+    % Informações do bolsista, orientador e período (personalize com seus dados)
+    \textbf{Bolsista:} {Nome Completo do Bolsista}\\
+    \textbf{Orientador(a):} Prof(a). Dr(a). Nome Completo do Orientador\\
+    \textbf{Período:} DD/MM/AAAA a DD/MM/AAAA
+    
 \end{center}
-% =============================================================================
-
-% Garante que a folha de rosto seja uma página ÍMPAR (Frente)
-\cleardoublepage 
 
 % =============================================================================
-% 2. FOLHA DE ROSTO (Manual - Para manter consistência com a Capa)
-% =============================================================================
-% ABNT: A contagem de páginas começa aqui (Ficha de rosto é pag 1 ou 2), 
-% mas o número não aparece.
-\begin{center}
-    % Repete os nomes
-    \textbf{NOME DO ALUNO 1}\\
-    \textbf{NOME DO ALUNO 2}\\
-    \textbf{NOME DO ALUNO 3}\\
-    
-    \vspace{3.5cm}
+% Nota: Use \cleardoublepage se precisar que a próxima página seja ímpar
+% \cleardoublepage 
 
-    {\fontsize{18pt}{22.5pt}\selectfont \textbf{TÍTULO DO TRABALHO}}\\
-    \vspace{3.5cm}
-    \hspace{.45\textwidth}
-    \begin{minipage}{.5\textwidth}
-        \SingleSpacing
-        Trabalho acadêmico apresentado ao Instituto tal, da Universidade tal, como requisito parcial para aprovação na disciplina SIGLA - Nome da Disciplina.
-        \vspace{\baselineskip}
-        Orientador: Prof. Dr. Nome do Professor.
-    \end{minipage}
+% =============================================================================
+% FOLHA DE ROSTO (OPCIONAL)
+% =============================================================================
+% Descomente esta seção se for necessário incluir uma folha de rosto formal.
+% A numeração de páginas ABNT começa aqui, mas o número não é exibido.
+% =============================================================================
+% 
+% \begin{center}
+%     % Nome do autor
+%     \textbf{Nome Completo do Bolsista}\\
+%     
+%     \vspace{3.5cm}
+%     
+%     % Título do trabalho
+%     {\fontsize{18pt}{22.5pt}\selectfont \textbf{Título do Projeto de Iniciação Científica}}\\
+%     {\fontsize{18pt}{22.5pt}\selectfont \textbf{Relatório Semestral}}\\
+%     
+%     \vspace{3.5cm}
+%     
+%     % Ficha catalográfica (ajuste a posição conforme necessário)
+%     \hspace{.45\textwidth}
+%     \begin{minipage}{.5\textwidth}
+%         \SingleSpacing
+%         Trabalho acadêmico apresentado ao [Nome do Instituto], 
+%         da Universidade de São Paulo, como requisito parcial para 
+%         [especifique o requisito].
+%         
+%         \vspace{\baselineskip}
+%         Orientador(a): Prof(a). Dr(a). Nome do Orientador.
+%     \end{minipage}
+%     
+%     \vfill
+%     
+%     % Local e ano
+%     {São Paulo\\2026}
+% \end{center}
+% 
+% \cleardoublepage
 
-    \vfill
-    {São Carlos\\2026}
-\end{center}
-\cleardoublepage
 % =============================================================================
+% LISTAS AUTOMÁTICAS (OPCIONAL)
 % =============================================================================
-% LISTAS
+% Descomente as seções abaixo conforme necessário para incluir listas
+% automáticas de figuras, tabelas, etc.
 % =============================================================================
+
 % --- Lista de Ilustrações ---
-\pdfbookmark[0]{\listfigurename}{lof}
-\listoffigures*
-\cleardoublepage
+% \pdfbookmark[0]{\listfigurename}{lof}
+% \listoffigures*
+% \cleardoublepage
 
 % --- Lista de Tabelas ---
-\pdfbookmark[0]{\listtablename}{lot}
-\listoftables* % <--- ADICIONADO O ASTERISCO (Correção Importante)
-\cleardoublepage
+% \pdfbookmark[0]{\listtablename}{lot}
+% \listoftables*
+% \cleardoublepage
 
 % =============================================================================
 % SUMÁRIO
 % =============================================================================
-\chapter*{\textbf{\fontfamily{ptm}\selectfont SUMÁRIO}}
-\addcontentsline{toc}{chapter}{SUMÁRIO}
+% Descomente para incluir o sumário (índice) do documento
+% =============================================================================
+% 
+% \chapter*{\textbf{\fontfamily{ptm}\selectfont SUMÁRIO}}
+% \addcontentsline{toc}{chapter}{SUMÁRIO}
+% 
+% \makeatletter
+% \renewcommand{\tableofcontents}{%
+%   \begingroup
+%   \patchcmd{\@makeschapterhead}
+%     {\@chapapp\space}
+%     {}
+%     {}{}
+%   \renewcommand{\contentsname}{\textbf{SUMÁRIO}}%
+%   \@starttoc{toc}%
+%   \endgroup
+% }
+% \makeatother
+% \tableofcontents
+% \cleardoublepage
+
+% =============================================================================
+% ELEMENTOS TEXTUAIS - CONTEÚDO PRINCIPAL DO RELATÓRIO
+% =============================================================================
+% A partir daqui começa o corpo do relatório.
+% A numeração de páginas pode ser ativada descomentando \pagestyle{abntpages}.
+% =============================================================================
+
+% Texto justificado
 \justifying
 
-\makeatletter
-\renewcommand{\tableofcontents}{%
-  \begingroup
-  \patchcmd{\@makeschapterhead}
-    {\@chapapp\space}
-    {}
-    {}{}
-  \renewcommand{\contentsname}{\textbf{SUMÁRIO}}%
-  \@starttoc{toc}%
-  \endgroup
-}
-\makeatother
-\tableofcontents
-\cleardoublepage
+% --- Ativa a numeração de páginas (descomente se necessário) ---
+% \pagestyle{abntpages}
+
 % =============================================================================
-% ELEMENTOS TEXTUAIS 
+% INCLUSÃO DOS ARQUIVOS DE CONTEÚDO
 % =============================================================================
-
-% Ativa a numeração nas páginas
-\pagestyle{abntpages} 
-
-% Reinicia contagem se necessário ou segue fluxo. 
-% O abntex2 conta capa, mas usualmente a introdução cai na pag 3, 5 ou 7.
-
-% Para testar sem os arquivos externos, descomente abaixo:
-\include{1introdução} 
-\include{2desenvolvimento}
-\include{3conclusao}
-\include{4imagens}
+% Os arquivos .tex abaixo contêm as seções principais do relatório.
+% Personalize-os conforme as necessidades do seu projeto.
+% =============================================================================
+\newpage % Inicia uma nova página para a seção de Contexto e Motivação
+\input{1motivacao}                        % Seção 1: Contexto e Motivação
+\input{2atividadesrealizadas}             % Seção 2: Atividades Realizadas
+\input{3atividadesemandamentoefuturas}    % Seção 3: Atividades em Andamento/Futuras
 
 % =============================================================================
 % ELEMENTOS PÓS-TEXTUAIS
 % =============================================================================
+% Inclui referências bibliográficas e outros elementos finais.
+% Configure o arquivo referencias.bib com suas referências.
+% =============================================================================
 \postextual
+
+% --- Referências Bibliográficas ---
+% As referências são geradas automaticamente a partir do arquivo referencias.bib
 \bibliography{referencias}
+
+% =============================================================================
+% ASSINATURAS (OPCIONAL)
+% =============================================================================
+% Seção para assinaturas do bolsista e orientador.
+% Ajuste os nomes conforme necessário.
+% =============================================================================
+
+\vfill % Empurra o conteúdo para o final da página
+
+% Data e local
+\hfill São Paulo, \today % Alinha a data à direita (ajuste a cidade se necessário)
+
+\vfill % Espaço para as assinaturas
+
+% Linha de assinatura do bolsista
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \rule{\textwidth}{0.5pt} \\
+    Bolsista: Nome Completo do Bolsista
+\end{minipage}
+\hfill
+% Linha de assinatura do orientador
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \rule{\textwidth}{0.5pt} \\
+    Orientador(a): Prof(a). Dr(a). Nome do Orientador
+\end{minipage}
 
 \end{document}

@@ -1,44 +1,152 @@
-# Modelo LaTeX — ABNT (abnTeX2) — 2026 1º semestre
+# Template LaTeX — Relatório PIBIC USP (abnTeX2)
 
-Projeto base para trabalhos acadêmicos seguindo a ABNT NBR 14724 (estrutura e paginação), utilizando a classe `abntex2` ajustada para fonte Times New Roman e capa personalizada para múltiplos autores. Inclui configuração pronta para citações (BibTeX), listas automáticas e destaque de código com `minted`. Preparado para uso no VS Code com a extensão LaTeX Workshop.
+Template em LaTeX para elaboração de Relatório Semestral de Iniciação Científica da Universidade de São Paulo, seguindo normas ABNT NBR 14724. Utiliza a classe `abntex2` com fonte Times New Roman e formatação personalizada para relatórios semestrais.
 
-> Guia de setup do editor: veja `tutorial/TUTORIAL_VSCode_LaTeX.md`.
+> **Tutorial de configuração:** Veja `setup/TUTORIAL_VSCode_LaTeX.md` para instruções detalhadas de instalação e configuração do ambiente LaTeX no VS Code.
 
-## Requisitos
-1. TeX Live completo (recomendado) ou distribuição equivalente com `pdflatex` e `bibtex`.
-2. Python 3 + Pygments (obrigatório para `minted`):
-  ```bash
-  pip install pygments
-  ```
-3. VS Code + extensão LaTeX Workshop.
-4. (Opcional) LTeX+ — verificação gramatical/ortográfica (PT-BR/EN).
+## 📋 Características do Template
 
-Atenção: para compilar com `minted` é obrigatório usar a flag `-shell-escape`.
+- **Formatação ABNT completa**: Margens, paginação e espaçamento conforme NBR 14724
+- **Capa personalizada USP**: Layout pronto com campos para nome da unidade, departamento e dados do projeto
+- **Fonte Times New Roman**: Aplicada em todo o documento, incluindo títulos e seções
+- **Sistema de citações**: Compatível com BibTeX e abntex2cite
+- **Estrutura modular**: Seções separadas em arquivos individuais para melhor organização
+- **Comentários explicativos**: Código amplamente comentado para facilitar personalização
 
 ---
 
-## Estrutura do projeto
-- `main.tex` — arquivo principal:
-  - Configurações de margens e fonte (Times).
-  - Capa e Folha de Rosto (editáveis manualmente no início do arquivo).
-  - Lógica de paginação frente e verso e inclusão de capítulos.
-- `1introdução.tex`, `2desenvolvimento.tex`, `3conclusao.tex` — capítulos textuais.
-- `4imagens.tex` — exemplos de Figuras e Tabelas com legendas ABNT.
-- `referencias.bib` — base bibliográfica (BibTeX).
-- `assets/` — pasta para imagens e estilos extras.
-  - (Opcional) estilos USPSC em `assets/bib/usp/USPSC-classe/`.
+## 🔧 Requisitos
+
+### Essenciais
+1. **Distribuição LaTeX**: TeX Live completo (recomendado) ou MiKTeX
+2. **Python 3 + Pygments** (para destaque de código com `minted`):
+   ```bash
+   pip install pygments
+   ```
+3. **Editor**: VS Code com extensão LaTeX Workshop
+
+### Opcionais
+- **LTeX+**: Verificação ortográfica e gramatical em português
+- **Comment Translate**: Tradução de comentários no código
+
+> ⚠️ **Importante**: Para compilar documentos com `minted`, é obrigatório usar a flag `-shell-escape`
 
 ---
 
-## Como compilar
-### Opção 1: VS Code (recomendado)
-1. Instale a extensão LaTeX Workshop.
-2. Abra `main.tex`.
-3. Na lateral do LaTeX, selecione a receita:
-  Recipe: pdflatex ➞ bibtex ➞ pdflatex × 2
+## 📂 Estrutura do Projeto
 
-### Opção 2: Linha de comando
-Na raiz do projeto, execute:
+```
+├── main.tex                          # Arquivo principal com preâmbulo e estrutura
+├── 1motivacao.tex                    # Seção: Contexto e Motivação
+├── 2atividadesrealizadas.tex         # Seção: Atividades Realizadas
+├── 3atividadesemandamentoefuturas.tex # Seção: Atividades em Andamento/Futuras
+├── referencias.bib                   # Arquivo de referências bibliográficas (BibTeX)
+├── README.md                         # Este arquivo
+├── LICENSE                           # Licença do projeto
+├── assets/                           # Recursos adicionais
+│   ├── images/                       # Pasta para imagens e figuras
+│   └── bib/                          # Estilos bibliográficos personalizados
+│       └── usp/USPSC-classe/        # Classes e estilos USP (opcional)
+└── setup/                            # Scripts e tutoriais de configuração
+    ├── TUTORIAL_VSCode_LaTeX.md     # Tutorial completo de configuração
+    └── scripts/                      # Scripts auxiliares
+        ├── setup_vscode_tex.ps1     # Setup Windows (PowerShell)
+        ├── setup_vscode_tex.sh      # Setup Linux/Mac
+        └── test_build.sh            # Teste de compilação
+```
+
+---
+
+## 🚀 Como Usar Este Template
+
+### 1. Personalizar a Capa
+
+Edite as seguintes informações no arquivo [main.tex](main.tex):
+
+```latex
+% Nome da unidade/faculdade (linha ~88)
+{\fontsize{12pt}{22.5pt}\text{NOME DO INSTITUTO OU FACULDADE}}
+
+% Nome do departamento (linha ~93)
+{\fontsize{9pt}{22.5pt}\textbf{NOME DO DEPARTAMENTO}
+\hfill \text{http://www.site-da-unidade.usp.br}}
+
+% Título do projeto (linha ~103)
+{\fontsize{12pt}{22.5pt}\selectfont {Título do Projeto de Iniciação Científica}}
+
+% Dados do bolsista e orientador (linhas ~107-109)
+\textbf{Bolsista:} {Nome Completo do Bolsista}\\
+\textbf{Orientador(a):} Prof(a). Dr(a). Nome Completo do Orientador\\
+\textbf{Período:} DD/MM/AAAA a DD/MM/AAAA
+```
+
+### 2. Preencher as Seções
+
+- **[1motivacao.tex](1motivacao.tex)**: Descreva o contexto, motivação e objetivos da pesquisa
+- **[2atividadesrealizadas.tex](2atividadesrealizadas.tex)**: Liste e descreva as atividades já realizadas
+- **[3atividadesemandamentoefuturas.tex](3atividadesemandamentoefuturas.tex)**: Descreva as próximas etapas
+
+Cada arquivo contém comentários explicativos e exemplos de estrutura.
+
+### 3. Adicionar Referências
+
+Edite [referencias.bib](referencias.bib) com suas referências bibliográficas. O arquivo já contém exemplos de diversos tipos de publicação:
+
+```bibtex
+@article{autor2023_exemplo,
+  author  = {Nome Autor},
+  title   = {Título do Artigo},
+  journal = {Nome do Periódico},
+  year    = {2023},
+  ...
+}
+```
+
+### Como Fazer Citações
+
+O template usa sistema numérico de citações ABNT. Exemplos:
+
+#### Citação Numérica Básica
+```latex
+Estudos recentes demonstram a eficácia do método \cite{autor2023}.
+```
+**Resultado:** "Estudos recentes demonstram a eficácia do método [1]."
+
+#### Citação com Autor na Sentença
+```latex
+Segundo \citeonline{autor2023}, a metodologia é adequada para o contexto.
+```
+**Resultado:** "Segundo Autor (2023), a metodologia é adequada..."
+
+#### Múltiplas Citações Simultâneas
+```latex
+Diversos autores concordam com essa abordagem \cite{autor2023,autor2022,autor2021}.
+```
+**Resultado:** "Diversos autores concordam com essa abordagem [1, 2, 3]."
+
+#### Citação com Página Específica
+```latex
+Como afirmado \cite[p.~25]{autor2023}, o resultado foi significativo.
+```
+**Resultado:** "Como afirmado [1, p. 25], o resultado foi significativo."
+
+> 💡 **Importante:** Todas as referências citadas devem estar cadastradas no arquivo [referencias.bib](referencias.bib)
+
+---
+
+## 🔨 Como Compilar
+
+### Opção 1: VS Code (Recomendado)
+
+1. Abra [main.tex](main.tex) no VS Code
+2. Na barra lateral do LaTeX Workshop, selecione a receita:
+   - **Recipe: pdflatex ➞ bibtex ➞ pdflatex × 2**
+3. O PDF será gerado automaticamente
+
+### Opção 2: Linha de Comando
+
+Execute os seguintes comandos na raiz do projeto:
+
 ```bash
 pdflatex -shell-escape -interaction=nonstopmode main.tex
 bibtex main
@@ -46,58 +154,100 @@ pdflatex -shell-escape -interaction=nonstopmode main.tex
 pdflatex -shell-escape -interaction=nonstopmode main.tex
 ```
 
-Dica: execute `bash tutorial/scripts/test_build.sh` (se disponível) para validação rápida.
+> 💡 **Dica**: Use o script `bash setup/scripts/test_build.sh` para validação rápida da compilação (Linux/Mac)
 
 ---
 
-## Como personalizar
-### 1. Capa e Folha de Rosto
-Este modelo usa capa construída manualmente em `main.tex` para múltiplos autores e layout específico.
-- Edite diretamente em `main.tex`: busque pelos ambientes `\begin{center}` após `\begin{document}` e ajuste Discentes, Título, Orientador e Cidade/Ano.
+## 📝 Recursos Adicionais
 
-### 2. Citações e referências
-- Adicione entradas no `referencias.bib`.
-- No texto:
-  - `\cite{chave}` → (AUTOR, Ano).
-  - `\citeonline{chave}` → Autor (Ano).
-- Compile com a receita completa para resolver referências.
+### Incluir Figuras
 
-### 3. Figuras e tabelas
-- Use o padrão de `4imagens.tex`.
-- Inclua a fonte após `\caption` com `\legend{Fonte: ...}`.
+```latex
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{assets/images/figura.png}
+  \caption{Legenda da figura}
+  \label{fig:exemplo}
+  \legend{Fonte: Elaborado pelo autor}
+\end{figure}
+```
 
----
+### Incluir Tabelas
 
-## Destaque de código (minted)
-Exemplo:
+```latex
+\begin{table}[htbp]
+  \centering
+  \caption{Título da tabela}
+  \label{tab:exemplo}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Coluna 1 & Coluna 2 & Coluna 3 \\
+    \hline
+    Dado 1   & Dado 2   & Dado 3   \\
+    \hline
+  \end{tabular}
+  \legend{Fonte: Elaborado pelo autor}
+\end{table}
+```
+
+### Destaque de Código (minted)
+
 ```latex
 \begin{minted}{python}
-def hello_abnt():
-   print("Normas formatadas com sucesso!")
+def exemplo():
+    print("Código formatado automaticamente!")
 \end{minted}
 ```
 
-Requer `-shell-escape` e `pygments` instalado.
+---
+
+## 🎯 Configurações Opcionais
+
+### Habilitar Listas Automáticas
+
+Para incluir lista de figuras e tabelas, descomente as seções correspondentes em [main.tex](main.tex) (linhas ~213-223):
+
+```latex
+% --- Lista de Ilustrações ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+% --- Lista de Tabelas ---
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+```
+
+### Habilitar Sumário
+
+Descomente a seção de sumário em [main.tex](main.tex) (linhas ~228-244).
+
+### Habilitar Numeração de Páginas
+
+Descomente a linha em [main.tex](main.tex) (linha ~258):
+
+```latex
+\pagestyle{abntpages}
+```
 
 ---
 
-## Paginação e margens (ABNT)
-Implementa NBR 14724 com impressão frente e verso (`twoside`):
-1. Contagem inicia na Capa (pág. 1), sem exibir número.
-2. Páginas em branco automáticas após Capa, Folha de Rosto e Listas para iniciar capítulos em página ímpar.
-3. Numeração visível a partir da Introdução (canto superior direito).
+## 📚 Documentação e Suporte
+
+- **Tutorial completo**: `setup/TUTORIAL_VSCode_LaTeX.md`
+- **Documentação abnTeX2**: https://github.com/abntex/abntex2
+- **Documentação BibTeX**: https://www.bibtex.org/
+- **Minted (destaque de código)**: https://github.com/gpoore/minted
 
 ---
 
-## Extensões VS Code recomendadas
-- LaTeX Workshop — build e preview.
-- LTeX+ — correção gramatical (`"ltex.language": "pt-BR"`).
-- Comment Translate — tradução rápida de comentários.
+## 📄 Licença e Créditos
+
+- **Autor do template**: Thiago de Castro Valverde
+- **Esse template e documentos foram adaptados automaticamente através do Agente Claude 3.5, com base em um modelo pré-existente de uso pessoal.**
+- **Baseado em**: [abnTeX2](https://github.com/abntex/abntex2)
+- **Licença**: GPL — veja [LICENSE](LICENSE)
+- **Última atualização**: Março de 2026
 
 ---
-
-## Licença e créditos
-- Baseado na classe [abnTeX2](https://github.com/abntex/abntex2).
-- Utiliza `minted` e Pygments para código.
-- Licença GPL — veja `LICENSE`.
-- Esse documento foi gerado com auxílio das IAs generativas ChatGPT e Gemini.
