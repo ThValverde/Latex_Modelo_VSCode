@@ -2,7 +2,7 @@
 
 Template em LaTeX para elaboração de Relatório Semestral de Iniciação Científica da Universidade de São Paulo, seguindo normas ABNT NBR 14724. Utiliza a classe `abntex2` com fonte Times New Roman e formatação personalizada para relatórios semestrais.
 
-> **Tutorial de configuração:** Veja `setup/TUTORIAL_VSCode_LaTeX.md` para instruções detalhadas de instalação e configuração do ambiente LaTeX no VS Code.
+> **Setup automático disponível:** Este template inclui scripts de configuração automática do VS Code para Windows (`setup/scripts/setup_vscode_tex.ps1`) e Linux/Mac (`setup/scripts/setup_vscode_tex.sh`). Para configuração manual detalhada, consulte [setup/TUTORIAL_VSCode_LaTeX.md](setup/TUTORIAL_VSCode_LaTeX.md).
 
 ## 📋 Características do Template
 
@@ -30,6 +30,41 @@ Template em LaTeX para elaboração de Relatório Semestral de Iniciação Cient
 - **Comment Translate**: Tradução de comentários no código
 
 > ⚠️ **Importante**: Para compilar documentos com `minted`, é obrigatório usar a flag `-shell-escape`
+
+---
+
+## ⚙️ Configuração Automática do VS Code
+
+Este template inclui scripts de configuração automática que instalam e configuram o VS Code com todas as extensões e configurações necessárias para trabalhar com LaTeX.
+
+### Windows (PowerShell)
+
+Execute no PowerShell como Administrador:
+
+```powershell
+cd setup/scripts
+.\setup_vscode_tex.ps1
+```
+
+### Linux/Mac
+
+Execute no terminal:
+
+```bash
+cd setup/scripts
+chmod +x setup_vscode_tex.sh
+./setup_vscode_tex.sh
+```
+
+### O que os scripts fazem
+
+- ✅ Verificam se o VS Code está instalado
+- ✅ Instalam automaticamente a extensão LaTeX Workshop
+- ✅ Configuram receitas de compilação com `-shell-escape`
+- ✅ Configuram visualização automática do PDF
+- ✅ (Opcional) Instalam extensões adicionais (LTeX+, Comment Translate)
+
+> 📖 **Configuração manual**: Para instruções detalhadas de configuração passo a passo, consulte [setup/TUTORIAL_VSCode_LaTeX.md](setup/TUTORIAL_VSCode_LaTeX.md)
 
 ---
 
@@ -235,7 +270,11 @@ Descomente a linha em [main.tex](main.tex) (linha ~258):
 
 ## 📚 Documentação e Suporte
 
-- **Tutorial completo**: `setup/TUTORIAL_VSCode_LaTeX.md`
+- **Setup automático VS Code**: 
+  - Windows: `setup/scripts/setup_vscode_tex.ps1`
+  - Linux/Mac: `setup/scripts/setup_vscode_tex.sh`
+- **Tutorial de configuração manual**: [setup/TUTORIAL_VSCode_LaTeX.md](setup/TUTORIAL_VSCode_LaTeX.md)
+- **Script de teste de compilação**: `setup/scripts/test_build.sh` (Linux/Mac)
 - **Documentação abnTeX2**: https://github.com/abntex/abntex2
 - **Documentação BibTeX**: https://www.bibtex.org/
 - **Minted (destaque de código)**: https://github.com/gpoore/minted
