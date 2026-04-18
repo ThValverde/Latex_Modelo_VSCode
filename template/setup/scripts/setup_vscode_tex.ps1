@@ -6,8 +6,11 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
+# $vscDir = Join-Path $root ".vscode" # working from within template
+
 $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
-$vscDir = Join-Path $root ".vscode"
+$vscDir = Join-Path $root "../.vscode"
 
 if (-not (Test-Path $vscDir)) {
     New-Item -ItemType Directory -Path $vscDir | Out-Null
