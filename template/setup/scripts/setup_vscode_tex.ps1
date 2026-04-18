@@ -1,13 +1,16 @@
 # Windows PowerShell setup script for VS Code LaTeX configuration
 # Creates .vscode/settings.json and .vscode/tasks.json adapted for Windows
 # Usage (from repo root):
-#   powershell -ExecutionPolicy Bypass -File .\setup\scripts\setup_vscode_tex.ps1
+#   powershell -ExecutionPolicy Bypass -File .\template\setup\scripts\setup_vscode_tex.ps1
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
-$vscDir = Join-Path $root ".vscode"
+$vscDir = Join-Path $root ".vscode" # working within the template folder
+
+# $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
+# $vscDir = Join-Path $root "../.vscode" # working from outside template folder
 
 if (-not (Test-Path $vscDir)) {
     New-Item -ItemType Directory -Path $vscDir | Out-Null
