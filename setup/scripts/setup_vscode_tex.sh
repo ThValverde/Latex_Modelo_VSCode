@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Setup VS Code LaTeX configuration (LaTeX Workshop) for this workspace
+# Compatível com TeX Live e MiKTeX (recomendado)
+# - Tools: pdflatex com -shell-escape, bibtex
+# - Recipes: pdfLaTeX → BibTeX → pdfLaTeX × 2
+# - Tasks: quick build and full build with BibTeX
+
+ROOT_DIR=$(cd "$(dirname "$0")/../.." && pwd)
+VSC_DIR="$ROOT_DIR/.vscode"
+mkdir -p "$VSC_DIR"
+
+echo "[INFO] Iniciando configuração do VS Code para LaTeX..."
+
+# ------------------------------------------------------------------------------
+# OTIMIZAÇÃO PARA MIKTEX
+# Se o MiKTeX for detectado, garante que a instalação automática de pacotes 
+# (on-the-fly) esteja ativada para evitar que o VS Code trave no background.
+# ------------------------------------------------------------------------------
+if command -v initexmf &> /dev/null; then
+    echo "[INFO] MiKTeX detectado no sistema."
+    echo "[INFO] Ativando AutoInstall=1 (on-the-fly) para evitar travamentos no build..."
+    initexmf --set-config-value [MPM]AutoInstall=1
+fi
+
+# Write settings.json (merge-safe minimal approach)
+SETTINGS="$VSC_DIR/settings.json"
+cat >"$SETTINGS" <<'JSON'
+{
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.tools": [
+    { "name": "pdflatex", "command": "pdflatex", "args": ["-shell-escape", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%DOCFILE%"] },
+    { "name": "bibtex", "command": "bibtex", "args": ["%DOCFILE%"] }
+  ],
+  "latex-workshop.latex.recipes": [
+    { "name": "pdfLaTeX ➞ BibTeX ➞ pdfLaTeX × 2", "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"] },
+    { "name": "pdfLaTeX", "tools": ["pdflatex"] }
+  ],
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux","*.bbl","*.blg","*.idx","*.ind","*.lof","*.lot","*.out","*.toc","*.acn","*.acr","*.alg","*.glg","*.glo","*.gls","*.fls","*.log","*.fdb_latexmk","*.snm","*.nav","*.vrb","*.synctex.gz","*.synctex(busy)","*/_minted*","*.figlist","*.makefile","*.run.xml"
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "commentTranslate.targetLanguage": "pt",
+  "ltex.language": "pt-BR",
+  "latex-workshop.formatting.latex": "latexindent",
+  "[latex]": {
+    "editor.wordWrap": "on"
+  },
+  "[bibtex]": {
+    "editor.wordWrap": "on"
+  }
+}
+JSON
+
+echo "[INFO] Wrote $SETTINGS"
+
+# Write tasks.json
+TASKS="$VSC_DIR/tasks.json"
+cat >"$TASKS" <<'JSON'
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build LaTeX (pdfLaTeX)",
+      "type": "shell",
+      "command": "pdflatex",
+      "args": ["-shell-escape", "-interaction=nonstopmode", "main.tex"],
+      "group": "build"
+    },
+    {
+      "label": "Build LaTeX with bibliography",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-lc", "pdflatex -shell-escape -interaction=nonstopmode main.tex && bibtex main && pdflatex -shell-escape -interaction=nonstopmode main.tex && pdflatex -shell-escape -interaction=nonstopmode main.tex"],
+      "group": "build"
+    }
+  ]
+}
+JSON
+
+echo "[INFO] Wrote $TASKS"
+
+echo "[DONE] VS Code LaTeX configuration ready. Open the folder in VS Code and use LaTeX Workshop recipes or Run Task."
