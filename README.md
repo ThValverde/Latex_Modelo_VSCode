@@ -5,7 +5,7 @@ Projeto base para trabalhos acadêmicos seguindo a ABNT NBR 14724 (estrutura e p
 > Guia de setup do editor: veja `tutorial/TUTORIAL_VSCode_LaTeX.md`.
 
 ## Requisitos
-1. TeX Live completo (recomendado) ou distribuição equivalente com `pdflatex` e `bibtex`.
+1. **MiKTeX** (altamente recomendado para Windows e Linux devido à instalação *on-the-fly* de pacotes, economizando gigabytes de espaço) ou **TeX Live completo**. É necessário que a distribuição forneça `pdflatex` e `bibtex`.
 2. Python 3 + Pygments (obrigatório para `minted`):
   ```bash
   pip install pygments

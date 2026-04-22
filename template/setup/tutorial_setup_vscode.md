@@ -1,10 +1,11 @@
+```markdown
 # Guia rápido: VS Code + LaTeX (abnTeX2, minted, BibTeX)
 
 Este guia documenta como replicar a configuração que está funcionando neste projeto no VS Code.
 
 ## Pré‑requisitos
-- TeX Live completo (recomendado) ou MikTeX (Windows). Em Linux/Debian/Ubuntu: `sudo apt install texlive-full`.
-- Python 3 + Pygments (para o pacote minted): `pip install pygments` e verifique `pygmentize --version`.
+- **MiKTeX** (Recomendado para Windows e Linux devido à instalação leve e *on-the-fly* de pacotes) ou TeX Live completo (alternativa pesada).
+- Python 3 + Pygments (para o pacote minted): `pip install pygments` e verifique `pygmentize -V`.
 - VS Code + extensão LaTeX Workshop (James Yu). Extensão Git instalada (padrão). Opcional: extensão GitDoc (auto-commit).
 - (Opcional) LTeX+ (ltex-plus.vscode-ltex-plus) — verificação gramatical/ortográfica automática via LanguageTool; Marketplace: https://marketplace.visualstudio.com/items?itemName=ltex-plus.vscode-ltex-plus
 
@@ -12,63 +13,67 @@ Observação importante: minted exige compilar com a flag `-shell-escape` para i
 
 ## Instalação do TeX e Pygments (Windows / Fedora / Ubuntu)
 
-A seguir há instruções rápidas para instalar um sistema TeX completo e o Pygments (necessário por `minted`) em Windows (MiKTeX), Fedora e Ubuntu. `texlive-full` é uma opção simples e completa em Linux, porém grande. Se preferir instalar só os pacotes mínimos, veja a documentação da sua distribuição.
+Recomendamos fortemente o uso do **MiKTeX** em todos os sistemas. Diferente do `texlive-full` (que baixa mais de 5GB de pacotes que você provavelmente não usará), o MiKTeX instala um núcleo mínimo (~200MB) e baixa pacotes específicos (como `abntex2`) **automaticamente** apenas quando são necessários durante a compilação.
 
-Windows (MiKTeX)
-- Baixe e execute o instalador do MiKTeX: https://miktex.org/download
+**⚠️ Atenção usuários do VS Code:** Para que a extensão LaTeX Workshop funcione corretamente com o MiKTeX em background, é obrigatório configurar a instalação de pacotes faltantes para "Sempre" (*Always*), caso contrário a compilação travará. Os scripts abaixo já resolvem isso.
+
+### Windows (MiKTeX)
+- Baixe e execute o instalador oficial: https://miktex.org/download
 - Durante a instalação, permita a instalação de pacotes "on-the-fly" (ou ative-a depois no MiKTeX Console → Settings → General → Install missing packages on-the-fly).
-- Verifique se o diretório bin do MiKTeX foi adicionado ao `PATH` (normalmente algo como `C:\Program Files\MiKTeX\miktex\bin\x64`). Para checar, abra PowerShell e rode:
-
-```powershell
-Get-Command pdflatex
-pdflatex --version
-```
-
-- Instale o Pygments (para `minted`) com pip:
-
+- Instale o Pygments (para `minted`) abrindo o PowerShell e rodando:
 ```powershell
 py -3 -m pip install --user Pygments
-pygmentize --version
 ```
-
-- Alternativa automática (se usar Chocolatey):
-
+- Alternativa via Chocolatey (terminal como Administrador):
 ```powershell
 choco install miktex
 ```
 
-Fedora
-- Instale o TeX Live completo (suficiente para a maioria dos projetos LaTeX):
+### Fedora (MiKTeX - Recomendado)
+Execute os comandos abaixo no terminal para adicionar o repositório, instalar o MiKTeX, o Pygments e já deixar tudo configurado para o VS Code:
 
 ```bash
-sudo dnf install texlive-scheme-full
+# 1. Importar a chave GPG e o repositório oficial
+sudo rpm --import [https://miktex.org/download/key](https://miktex.org/download/key)
+sudo curl -L -o /etc/yum.repos.d/miktex.repo "[https://miktex.org/download/fedora/$](https://miktex.org/download/fedora/$)(rpm -E %fedora)/miktex.repo"
+
+# 2. Instalar MiKTeX, Pygments e dependência do Perl (evita erro no latexmk do VS Code)
+sudo dnf update -y
+sudo dnf install -y miktex python3-pygments perl-Unicode-Normalize
+
+# 3. Setup inicial e ativação do On-the-fly (obrigatório para VS Code)
+miktexsetup finish
+initexmf --set-config-value [MPM]AutoInstall=1
+miktex packages update
 ```
 
-- Instale o Pygments (pacote do sistema) ou via pip:
+### Ubuntu / Debian (MiKTeX - Recomendado)
+Processo semelhante ao Fedora. No terminal:
 
 ```bash
-sudo dnf install python3-pygments
-# ou, via pip para o usuário:
-python3 -m pip install --user Pygments
-pygmentize --version
-```
+# 1. Adicionar chave e repositório (exemplo para Ubuntu)
+curl -fsSL [https://miktex.org/download/key](https://miktex.org/download/key) | sudo tee /usr/share/keyrings/miktex-keyring.asc > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/miktex-keyring.asc] [https://miktex.org/download/ubuntu](https://miktex.org/download/ubuntu) $(lsb_release -cs) universe" | sudo tee /etc/apt/sources.list.d/miktex.list
 
-Ubuntu / Debian
-- Atualize repositórios e instale o TeX Live completo e Pygments:
-
-```bash
+# 2. Instalar MiKTeX e Pygments
 sudo apt update
-sudo apt install texlive-full python3-pygments
-pygmentize --version
+sudo apt install -y miktex python3-pygments
+
+# 3. Setup inicial e ativação do On-the-fly
+miktexsetup finish
+initexmf --set-config-value [MPM]AutoInstall=1
+miktex packages update
 ```
 
-- Observação: `texlive-full` instala muitos pacotes (é grande). Se quiser um conjunto menor, instale os meta-pacotes `texlive-latex-recommended`, `texlive-latex-extra`, `texlive-fonts-recommended`, `texlive-bibtex-extra` conforme a necessidade.
+### Alternativa: TeX Live (Pesada)
+Se você tem muito espaço em disco e prefere a instalação legada que já inclui todos os pacotes existentes (~5GB a 7GB), utilize o repositório da sua distribuição:
+- **Fedora:** `sudo dnf install texlive-scheme-full python3-pygments`
+- **Ubuntu/Debian:** `sudo apt install texlive-full python3-pygments`
 
-Boas práticas
-- Após instalar, confirme que `pdflatex`, `bibtex` e `pygmentize` estão visíveis no `PATH` (rodando `pdflatex --version`, `bibtex --version`, `pygmentize --version`).
-- Lembre-se de compilar com `-shell-escape` quando usar `minted`.
-- Em ambientes corporativos com restrições de rede, habilite a instalação automática de pacotes no MiKTeX ou instale os pacotes faltantes manualmente via MiKTeX Console.
+**Boas práticas de validação:**
+Após qualquer instalação, abra um novo terminal e rode `pdflatex --version` e `pygmentize -V`. Se ambos retornarem as versões corretas, seu sistema está pronto.
 
+---
 
 ## Estrutura de build
 - Ferramenta principal: `pdflatex` com `-shell-escape`.
@@ -131,7 +136,9 @@ Tarefas (Tasks) opcionais em `.vscode/tasks.json` para builds pela paleta (Ctrl+
   ]
 }
 ```
--
+
+---
+
 ## Setup no Windows (script)
 
 Há um script PowerShell incluído em `setup/scripts/setup_vscode_tex.ps1` para automatizar a criação de `/.vscode/settings.json` e `/.vscode/tasks.json` com configurações adaptadas para Windows.
@@ -150,15 +157,14 @@ powershell -ExecutionPolicy Bypass -File .\setup\scripts\setup_vscode_tex.ps1
 Observações e boas práticas:
 - O `-ExecutionPolicy Bypass` aplica-se apenas a esta invocação e evita erros de política de execução de scripts. Se preferir, abra o PowerShell como Administrador e ajuste a política com cautela (`Set-ExecutionPolicy RemoteSigned`) antes de rodar.
 - Não é necessário executar como Administrador para criar a pasta `.vscode` na raiz do repositório — faça isso somente se receber erros de permissão.
-- Verifique que o `pdflatex` e o `bibtex` estão no `PATH` (instale TeX Live ou MiKTeX) e que `pygmentize` (Pygments) está instalado se usar `minted`.
 - Após rodar o script, abra a pasta no VS Code; a extensão LaTeX Workshop reconhecerá as receitas e você poderá usar a barra de status para compilar ou "Run Task" → "Build LaTeX with bibliography".
 
-Nota: o comentário interno no script traz um caminho relativo diferente (`.\tutorial\scripts\...`); o caminho correto para este repositório é `setup/scripts/setup_vscode_tex.ps1` conforme mostrado acima.
-
-Notas:
+Notas adicionais:
 - No BibTeX, use o nome base do arquivo (`main`), não `main.aux`.
 - Para shells diferentes, adapte o comando da segunda tarefa (o uso de `bash -lc` garante operadores como `&&`).
 - O `latex-workshop.latex.clean.method` está ajustado para `glob`, então a extensão apaga diretamente os arquivos listados em `latex-workshop.latex.clean.fileTypes` e não precisa do `latexmk` instalado apenas para limpeza.
+
+---
 
 ## Como compilar
 - Método recomendado: LaTeX Workshop → selecione a receita "pdfLaTeX ➞ BibTeX ➞ pdfLaTeX × 2" no status bar; clique para compilar.
@@ -169,21 +175,30 @@ Notas:
   3) `pdflatex -shell-escape -interaction=nonstopmode main.tex`
   4) `pdflatex -shell-escape -interaction=nonstopmode main.tex`
 
+---
+
 ## Dicas de depuração
+- Erro `Can't locate Unicode/Normalize.pm` (Linux/Fedora): O VS Code tenta usar o `latexmk` como construtor padrão e falta uma biblioteca do Perl no sistema. Rode `sudo dnf install perl-Unicode-Normalize` no Fedora. Certifique-se também de compilar pelo menu lateral clicando especificamente na nossa receita `pdfLaTeX ➞ BibTeX ➞ pdfLaTeX × 2`.
 - minted: Se aparecer erro "-shell-escape required" ou ausência de `pygmentize`, instale Pygments e recompile com a flag.
 - Citações "Undefined": rode a receita completa com BibTeX (quatro passos). Verifique as chaves no `referencias.bib`.
-- Figure landscape: use `\\usepackage{pdflscape}` e prefira `\\begin{landscape} ... \\end{landscape}` envolvendo o `figure`, sem aninhar figuras.
+- Figure landscape: use `\usepackage{pdflscape}` e prefira `\begin{landscape} ... \end{landscape}` envolvendo o `figure`, sem aninhar figuras.
 - Aviso de PDF version ao incluir figuras: exporte imagens PDF em versão 1.5 ou inferior.
-- Over/Underfull \\hbox: ajuste quebras de linha, hifens opcionais (\\-), ou troque imagens/tabelas de lugar.
+- Over/Underfull \hbox: ajuste quebras de linha, hifens opcionais (\-), ou troque imagens/tabelas de lugar.
+
+---
 
 ## Paginação conforme ABNT (resumo)
 - Contagem em arábicos desde as páginas pré‑textuais, mas sem exibir número nelas.
 - Exibir números a partir da parte textual (ex.: Introdução), no cabeçalho à direita.
 - Esta configuração já está implementada em `main.tex` com um estilo de página customizado.
 
+---
+
 ## Automação de Git (opcional)
 - Extensão GitDoc (se instalada): commits automáticos após salvar, com pull/push. Parâmetros em `.vscode/settings.json`.
 - Tarefa "Build and Commit" pode encadear build + commit manual.
+
+---
 
 ## Requisitos verificados neste projeto
 - `pdflatex` disponível e compilando com `-shell-escape`.
@@ -191,6 +206,8 @@ Notas:
 - `pygmentize` detectado no sistema.
 
 Pronto! Com isso, você deve conseguir replicar a configuração em outra máquina/projeto rapidamente.
+
+---
 
 ## Extensões adicionais recomendadas
 
@@ -217,14 +234,3 @@ Além da LaTeX Workshop, recomenda‑se instalar:
 
 3. (Opcional) GitLens / EditorConfig / Markdown All in One
   - Auxiliam em revisão, formatação padronizada e edição de README.
-
-### Resumo rápido das chaves adicionadas
-```jsonc
-"commentTranslate.targetLanguage": "pt",
-"ltex.language": "pt-BR",
-"latex-workshop.formatting.latex": "latexindent",
-"[latex]": {"editor.wordWrap": "on"},
-"[bibtex]": {"editor.wordWrap": "on"}
-```
-
-Essas opções já aparecem nos scripts de setup e no bloco de exemplo acima; rode o script adequado ao seu sistema para gerar `/.vscode/settings.json` automaticamente.
