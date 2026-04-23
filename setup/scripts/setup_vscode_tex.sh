@@ -9,6 +9,7 @@ set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "$0")/../.." && pwd)
 VSC_DIR="$ROOT_DIR/.vscode"
+# VSC_DIR="$ROOT_DIR/../.vscode"
 mkdir -p "$VSC_DIR"
 
 echo "[INFO] Iniciando configuração do VS Code para LaTeX..."

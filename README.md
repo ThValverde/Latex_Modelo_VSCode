@@ -2,7 +2,7 @@
 
 Projeto base para trabalhos acadêmicos seguindo a ABNT NBR 14724 (estrutura e paginação), utilizando a classe `abntex2` ajustada para fonte Times New Roman e capa personalizada para múltiplos autores. Inclui configuração pronta para citações (BibTeX), listas automáticas e destaque de código com `minted`. Preparado para uso no VS Code com a extensão LaTeX Workshop.
 
-> Guia de setup do editor: veja `tutorial/TUTORIAL_VSCode_LaTeX.md`.
+> Guia de setup do editor: veja `setup/tutorial_setup_vscode.md`.
 
 ## Requisitos
 1. **MiKTeX** (altamente recomendado para Windows e Linux devido à instalação *on-the-fly* de pacotes, economizando gigabytes de espaço) ou **TeX Live completo**. É necessário que a distribuição forneça `pdflatex` e `bibtex`.
