@@ -2,34 +2,18 @@
 set -euo pipefail
 
 # Setup VS Code LaTeX configuration (LaTeX Workshop) for this workspace
-# Compatível com TeX Live e MiKTeX (recomendado)
-# - Tools: pdflatex com -shell-escape, bibtex
+# - Tools: pdflatex with -shell-escape, bibtex
 # - Recipes: pdfLaTeX → BibTeX → pdfLaTeX × 2
 # - Tasks: quick build and full build with BibTeX
 
 ROOT_DIR=$(cd "$(dirname "$0")/../.." && pwd)
 VSC_DIR="$ROOT_DIR/.vscode"
-# VSC_DIR="$ROOT_DIR/../.vscode"
 mkdir -p "$VSC_DIR"
-
-echo "[INFO] Iniciando configuração do VS Code para LaTeX..."
-
-# ------------------------------------------------------------------------------
-# OTIMIZAÇÃO PARA MIKTEX
-# Se o MiKTeX for detectado, garante que a instalação automática de pacotes 
-# (on-the-fly) esteja ativada para evitar que o VS Code trave no background.
-# ------------------------------------------------------------------------------
-if command -v initexmf &> /dev/null; then
-    echo "[INFO] MiKTeX detectado no sistema."
-    echo "[INFO] Ativando AutoInstall=1 (on-the-fly) para evitar travamentos no build..."
-    initexmf --set-config-value [MPM]AutoInstall=1
-fi
 
 # Write settings.json (merge-safe minimal approach)
 SETTINGS="$VSC_DIR/settings.json"
 cat >"$SETTINGS" <<'JSON'
 {
-  "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.tools": [
     { "name": "pdflatex", "command": "pdflatex", "args": ["-shell-escape", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%DOCFILE%"] },
     { "name": "bibtex", "command": "bibtex", "args": ["%DOCFILE%"] }
@@ -37,7 +21,6 @@ cat >"$SETTINGS" <<'JSON'
   "latex-workshop.latex.recipes": [
     { "name": "pdfLaTeX ➞ BibTeX ➞ pdfLaTeX × 2", "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"] },
     { "name": "pdfLaTeX", "tools": ["pdflatex"] }
-    // if not using bibliography, invert this order
   ],
   "latex-workshop.latex.autoClean.run": "onBuilt",
   "latex-workshop.latex.clean.method": "glob",
