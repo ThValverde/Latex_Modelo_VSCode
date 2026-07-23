@@ -1,16 +1,16 @@
 # Windows PowerShell setup script for VS Code LaTeX configuration
 # Creates .vscode/settings.json and .vscode/tasks.json adapted for Windows
 # Usage (from repo root):
-#   powershell -ExecutionPolicy Bypass -File .\template\setup\scripts\setup_vscode_tex.ps1
+#   powershell -ExecutionPolicy Bypass -File .\setup\scripts\setup_vscode_tex.ps1
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
-$vscDir = Join-Path $root ".vscode" # working within the template folder
+$vscDir = Join-Path $root ".vscode" 
 
 # $root = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..\..")
-# $vscDir = Join-Path $root "../.vscode" # working from outside template folder
+# $vscDir = Join-Path $root "../.vscode" #from outside from latex folder
 
 if (-not (Test-Path $vscDir)) {
     New-Item -ItemType Directory -Path $vscDir | Out-Null
@@ -27,6 +27,7 @@ $settings = @'
     { "name": "pdfLaTeX", "tools": ["pdflatex"] }
   ],
   "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.autoBuild.run": "never",
   "latex-workshop.latex.clean.method": "glob",
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux","*.bbl","*.blg","*.idx","*.ind","*.lof","*.lot","*.out","*.toc","*.acn","*.acr","*.alg","*.glg","*.glo","*.gls","*.fls","*.log","*.fdb_latexmk","*.snm","*.nav","*.vrb","*.synctex.gz","*.synctex(busy)","*/_minted*","*.figlist","*.makefile","*.run.xml"
