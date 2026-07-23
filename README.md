@@ -173,10 +173,22 @@ Como afirmado \cite[p.~25]{autor2023}, o resultado foi significativo.
 
 ### Opção 1: VS Code (Recomendado)
 
-1. Abra [main.tex](main.tex) no VS Code
-2. Na barra lateral do LaTeX Workshop, selecione a receita:
-   - **Recipe: pdflatex ➞ bibtex ➞ pdflatex × 2**
-3. O PDF será gerado automaticamente
+O script de configuração gerou os arquivos de configuração necessários. **Por padrão, a compilação automática contínua está desativada** (`"latex-workshop.latex.autoBuild.run": "never"`) para evitar execuções excessivas enquanto você digita.
+
+Abaixo estão os cenários de uso:
+
+**Cenário A: Compilação Manual (Padrão do repositório)**
+Sempre que quiser gerar ou atualizar o seu PDF, você deve iniciar o processo manualmente:
+1. Aperte o atalho `Ctrl` + `Alt` + `B` para usar a receita completa padrão da extensão (pdflatex ➞ bibtex ➞ pdflatex × 2).
+2. Como alternativa, você pode rodar a *Task* de compilação configurada usando o atalho `Ctrl` + `Shift` + `B` e selecionando "Build LaTeX with bibliography".
+
+**Cenário B: Habilitar a Compilação Automática**
+Caso você prefira que o PDF seja gerado sozinho e de forma automática enquanto você escreve:
+1. Abra o arquivo `.vscode/settings.json`.
+2. Localize a linha `"latex-workshop.latex.autoBuild.run": "never"`.
+3. Altere o valor `"never"` para:
+   - `"onSave"`: Compila toda vez que você salvar o arquivo (`Ctrl` + `S`).
+   - `"onFileChange"`: Compila imediatamente ao detectar alterações no código.
 
 ### Opção 2: Linha de Comando
 
@@ -189,7 +201,7 @@ pdflatex -shell-escape -interaction=nonstopmode main.tex
 pdflatex -shell-escape -interaction=nonstopmode main.tex
 ```
 
-> 💡 **Dica**: Use o script `bash setup/scripts/test_build.sh` para validação rápida da compilação (Linux/Mac)
+> 💡 Dica: Use o script bash setup/scripts/test_build.sh para validação rápida da compilação (Linux/Mac)
 
 ---
 
