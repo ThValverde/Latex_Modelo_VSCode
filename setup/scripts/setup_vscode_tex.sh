@@ -23,6 +23,7 @@ cat >"$SETTINGS" <<'JSON'
     { "name": "pdfLaTeX", "tools": ["pdflatex"] }
   ],
   "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.autoBuild.run": "never",
   "latex-workshop.latex.clean.method": "glob",
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux","*.bbl","*.blg","*.idx","*.ind","*.lof","*.lot","*.out","*.toc","*.acn","*.acr","*.alg","*.glg","*.glo","*.gls","*.fls","*.log","*.fdb_latexmk","*.snm","*.nav","*.vrb","*.synctex.gz","*.synctex(busy)","*/_minted*","*.figlist","*.makefile","*.run.xml"

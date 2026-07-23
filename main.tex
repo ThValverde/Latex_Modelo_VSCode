@@ -10,6 +10,8 @@
 ]{abntex2}
 
 \usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
 % --- GEOMETRIA (Margens ABNT) ---
 \usepackage[
@@ -20,21 +22,33 @@
     right=2cm
 ]{geometry}
 
-% --- FONTES (Times New Roman) ---
-\usepackage[T1]{fontenc}
-\usepackage{mathptmx}       % Times New Roman
-\usepackage[scaled]{helvet} % Helvetica
-\usepackage{courier}        % Courier
+% =============================================================================
+% BLOCO DE FONTE PRINCIPAL
+% Comente uma das opções abaixo para alternar entre Arial e Times
+% =============================================================================
 
-% --- FORÇAR TIMES NEW ROMAN NOS TÍTULOS ---
+% --- OPÇÃO 1: ARIAL ---
+% \usepackage[scaled]{helvet} % Arial/Helvetica
+% \renewcommand{\familydefault}{\sfdefault}
+% \renewcommand{\ABNTEXchapterfont}{\sffamily\bfseries}
+% \renewcommand{\ABNTEXsectionfont}{\sffamily\bfseries}
+% \renewcommand{\ABNTEXsubsectionfont}{\sffamily\bfseries}
+% \renewcommand{\ABNTEXsubsubsectionfont}{\sffamily\bfseries}
+
+% --- OPÇÃO 2: TIMES NEW ROMAN ---
+\usepackage{mathptmx}      % Times New Roman
+\renewcommand{\familydefault}{\rmdefault}
 \renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
 \renewcommand{\ABNTEXsectionfont}{\rmfamily\bfseries}
 \renewcommand{\ABNTEXsubsectionfont}{\rmfamily\bfseries}
 \renewcommand{\ABNTEXsubsubsectionfont}{\rmfamily\bfseries}
 
+% --- Fonte Monosspaceada Padrão ---
+\usepackage{courier}        
+
+% --- PACOTES GERAIS ---
 \usepackage{pdfpages}
 \usepackage{minted}
-\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -50,9 +64,10 @@
 \usepackage{indentfirst}
 \setlength{\parskip}{0.0cm}
 
-% --- AJUSTES DE LISTAS (CAIXA ALTA e TIMES) ---
-\addto\captionsbrazil{\renewcommand{\listfigurename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE ILUSTRAÇÕES}}}
-\addto\captionsbrazil{\renewcommand{\listtablename}{\textbf{\fontfamily{ptm}\selectfont LISTA DE TABELAS}}}
+% --- AJUSTES DE LISTAS (CAIXA ALTA) ---
+% Removida a imposição da fonte ptm para acompanhar a escolha Arial/Times automaticamente
+\addto\captionsbrazil{\renewcommand{\listfigurename}{\textbf{LISTA DE ILUSTRAÇÕES}}}
+\addto\captionsbrazil{\renewcommand{\listtablename}{\textbf{LISTA DE TABELAS}}}
 
 % --- CITAÇÕES ---
 \usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite=3, abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite}
@@ -103,11 +118,13 @@
 % Garante que a folha de rosto seja uma página ÍMPAR (Frente)
 \cleardoublepage 
 
+% --- CORREÇÃO DE PAGINAÇÃO ABNT ---
+% A capa não é contada. A contagem inicia na Folha de Rosto (Página 1).
+\setcounter{page}{1} 
+
 % =============================================================================
 % 2. FOLHA DE ROSTO (Manual - Para manter consistência com a Capa)
 % =============================================================================
-% ABNT: A contagem de páginas começa aqui (Ficha de rosto é pag 1 ou 2), 
-% mas o número não aparece.
 \begin{center}
     % Repete os nomes
     \textbf{NOME DO ALUNO 1}\\
@@ -121,7 +138,13 @@
     \hspace{.45\textwidth}
     \begin{minipage}{.5\textwidth}
         \SingleSpacing
+        \footnotesize % <--- ADICIONADO: Reduz o tamanho da fonte (ABNT)
+        
         Trabalho acadêmico apresentado ao Instituto tal, da Universidade tal, como requisito parcial para aprovação na disciplina SIGLA - Nome da Disciplina.
+        
+        \vspace{\baselineskip}
+        \textbf{Atenção:} Embora este modelo siga as diretrizes gerais da ABNT NBR 14724, recomenda-se fortemente a verificação de adequações específicas ou manuais de normalização exigidos pela sua instituição ou departamento.
+        
         \vspace{\baselineskip}
         Orientador: Prof. Dr. Nome do Professor.
     \end{minipage}
@@ -130,50 +153,14 @@
     {São Carlos\\2026}
 \end{center}
 \cleardoublepage
-% =============================================================================
-% =============================================================================
-% LISTAS
-% =============================================================================
-% --- Lista de Ilustrações ---
-\pdfbookmark[0]{\listfigurename}{lof}
-\listoffigures*
-\cleardoublepage
 
-% --- Lista de Tabelas ---
-\pdfbookmark[0]{\listtablename}{lot}
-\listoftables* % <--- ADICIONADO O ASTERISCO (Correção Importante)
-\cleardoublepage
-
-% =============================================================================
-% SUMÁRIO
-% =============================================================================
-\chapter*{\textbf{\fontfamily{ptm}\selectfont SUMÁRIO}}
-\addcontentsline{toc}{chapter}{SUMÁRIO}
-\justifying
-
-\makeatletter
-\renewcommand{\tableofcontents}{%
-  \begingroup
-  \patchcmd{\@makeschapterhead}
-    {\@chapapp\space}
-    {}
-    {}{}
-  \renewcommand{\contentsname}{\textbf{SUMÁRIO}}%
-  \@starttoc{toc}%
-  \endgroup
-}
-\makeatother
-\tableofcontents
-\cleardoublepage
 % =============================================================================
 % ELEMENTOS TEXTUAIS 
 % =============================================================================
 
-% Ativa a numeração nas páginas
-\pagestyle{abntpages} 
-
-% Reinicia contagem se necessário ou segue fluxo. 
-% O abntex2 conta capa, mas usualmente a introdução cai na pag 3, 5 ou 7.
+% CORREÇÃO ABNT: Marca o início do texto. O abntex2 automaticamente 
+% ativa a numeração no cabeçalho e formata a partir daqui.
+\textual 
 
 % Para testar sem os arquivos externos, descomente abaixo:
 \include{1introdução} 
